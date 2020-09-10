@@ -1,0 +1,13 @@
+h1, h2 {
+    font-family: 'Oswald', sans-serif
+}
+Body {
+    margin: 10px 50px 10px 50px;
+    color: DarkBlue;
+    font-family: 'Open Sans', sans-serif;
+    Width: 950px;
+    background-color: ivory;
+}
+img {
+    float: left;
+}

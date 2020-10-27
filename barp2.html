@@ -1,15 +1,73 @@
 <script>
     /* This is my Invoice 1.
     */
-    //Product Data
+    function generate_item_rows(product_quantities_array){
+         // prints out rows 
+         for (i=0; i<product_quantities_array.length; i++) {
+          if( !isNonNegIntString (product_quantities_array[i]))  {
+            product_quantities_array[i] = 0;
+          }
+          if (product_quantities_array[i] == 0){
+            continue;
+          }
+            extended_price = product_quantities_array[i] * products[i].price;
+            subtotal += extended_price;
+            document.write(`
+         
 
+        <tr>
+         <td width="43%">${products[i].brand}</td>
+         <td align="center" width="11%">${product_quantities_array[i]}</td>
+         <td width="13%">${products[i].price}</td>
+         <td width="13%">${extended_price}</td>
+       </tr>
+       `);
+    }
+  }
+    function isNonNegIntString (val, returnErrors = false) {
+    // this function will check if string_to_check is a non negative interger. turns true if string_to_check is a non neh=gative interger
+    errors = []; // assume no errors at first
+    if(Number(val) != val) errors.push('Not a number!'); // Check if string is a number value
+    if(val< 0) errors.push('Negative value!'); // Check if it is non-negative
+    if(parseInt(val) != val) errors.push('Not an integer!'); // Check that it is an integer
+return returnErrors ? errors : ((errors.length > 0)?false:true);
+}
+    //Product Data
+    var products = [ {
+
+                "brand" : "HTC",
+                "price" : 40.00,
+                "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg"
+    },
+    {
+                 "brand" : "Apple",
+                 "price" : 75.00,
+                 "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg"
+    },
+    {
+                 "brand" : "Nokia",
+                 "price" : 35.00, 
+                 "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg"
+},
+{
+                 "brand" : "Samsung",
+                 "price" : 45.00, 
+                 "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg"
+        },
+  {
+                 "brand" : "Blackberry",
+                 "price" : 10.00,
+                 "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg" 
+                }
+            ];
+            var quantities = [0,1,2,3,4];
      // Product 1
      var item1 = 'Gillette Sensor 3 Razor';
      var quantity1 = 2;
      var price1 = 1.23;
 
       // Product 2
-      var item2 = 'Barbasol Shaving Cream';
+      var itm2 = 'Barbasol Shaving Cream';
      var quantity2 = 1;
      var price2 = 2.64;
 
@@ -29,7 +87,7 @@
      var price5 = 1.89;
 
      var subtotal = 0;
-</script>
+     </script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,55 +106,8 @@
           </tr>
            <script>
              extended_price = quantity1 * price1;
-             subtotal = extended_price + subtotal;
-               document.write(`
-           <tr>
-            <td width="43%">${item1}</td>
-            <td align="center" width="11%">${quantity1}</td>
-            <td width="13%">${price1}</td>
-            <td width="13%">${extended_price}</td>
-          </tr>
-          `);
-          extended_price = quantity2 * price2;
-             subtotal = extended_price + subtotal;
-            document.write(`
-        <tr>
-         <td width="43%">${item2}</td>
-         <td align="center" width="11%">${quantity2}</td>
-         <td width="13%">${price2}</td>
-         <td width="13%">${extended_price}</td>
-       </tr>
-       `);
-       extended_price = quantity3 * price3;
-             subtotal = extended_price + subtotal;
-       document.write(`
-        <tr>
-         <td width="43%">${item3}</td>
-         <td align="center" width="11%">${quantity3}</td>
-         <td width="13%">${price3}</td>
-         <td width="13%">${extended_price}</td>
-       </tr>
-       `);
-       extended_price = quantity4 * price4;
-             subtotal = extended_price + subtotal;
-       document.write(`
-        <tr>
-         <td width="43%">${item4}</td>
-         <td align="center" width="11%">${quantity4}</td>
-         <td width="13%">${price4}</td>
-         <td width="13%">${extended_price}</td>
-       </tr>
-       `);
-       extended_price = quantity5 * price5;
-             subtotal = extended_price + subtotal; 
-       document.write(`
-        <tr>
-         <td width="43%">${item5}</td>
-         <td align="center" width="11%">${quantity5}</td>
-         <td width="13%">${price5}</td>
-         <td width="13%">${extended_price}</td>
-       </tr>
-       `);
+             subtotal += extended_price;
+             generate_item_rows(quantities)
      // Taxes
      var tax = 0.0575;
      var tax_amount = subtotal * tax;

@@ -1,8 +1,48 @@
 <script>
     /* This is my Invoice 1.
     */
+   function generate_item_rows(product_quantities_array){
+     // prints out rows
+     extended_price = product_quantities_array[i] * price2;
+             subtotal = extended_price + subtotal;
+            document.write(`
+        <tr>
+         <td width="43%">${item2}</td>
+         <td align="center" width="11%">${product_quantities_array[i]}</td>
+         <td width="13%">${price2}</td>
+         <td width="13%">${extended_price}</td>
+       </tr>
+       `);
+   }
     //Product Data
-
+    var products = [ {
+                "brand" : "HTC",
+                "price" : 40.00,
+                "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg"
+    },
+    {
+                 "brand" : "Apple",
+                 "price" : 75.00,
+                 "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg"
+    },
+    {
+                 "brand" : "Nokia",
+                 "price" : 35.00, 
+                 "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg"
+    },
+    {
+                 "brand" : "Samsung",
+                 "price" : 45.00, 
+                 "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg"
+        },
+        {
+                 "brand" : "Blackberry",
+                 "price" : 10.00,
+                 "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg" 
+                }
+            
+            ];
+            var quantities = [0,1,2,3,4];
      // Product 1
      var item1 = 'Gillette Sensor 3 Razor';
      var quantity1 = 2;
@@ -49,14 +89,8 @@
            <script>
              extended_price = quantity1 * price1;
              subtotal = extended_price + subtotal;
-               document.write(`
-           <tr>
-            <td width="43%">${item1}</td>
-            <td align="center" width="11%">${quantity1}</td>
-            <td width="13%">${price1}</td>
-            <td width="13%">${extended_price}</td>
-          </tr>
-          `);
+             generate_item_rows (quantities);
+
           extended_price = quantity2 * price2;
              subtotal = extended_price + subtotal;
             document.write(`

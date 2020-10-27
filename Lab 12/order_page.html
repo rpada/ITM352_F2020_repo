@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function checkQuantityTextbox(){
+            qty_textbook_message.innerHTML = isNonNegIntString(quantity_textbox.value, true). join(" ");
+        }
+    function isNonNegIntString (string_to_check, returnErrors = false) {
+    // this function will check if string_to_check is a non negative interger. turns true if string_to_check is a non neh=gative interger
+    errors = []; // assume no errors at first
+    if(Number(string_to_check) != string_to_check) errors.push('Not a number!'); // Check if string is a number value
+    if(string_to_check< 0) errors.push('Negative value!'); // Check if it is non-negative
+    if(parseInt(string_to_check) != string_to_check) errors.push('Not an integer!'); // Check that it is an integer
+    return returnErrors ? errors : (errors.length == 0);
+}
+
+    </script>
+</head>
+<body>
+    <label for = "frname">Quantity desired</label><br>
+    <input type = "text" id = "quantity_textbox" onkeyup = "checkQuantityTextbox();"><br> 
+    <span id = "qty_textbook_message">Enter a quantity</span>
+</body>
+</html>

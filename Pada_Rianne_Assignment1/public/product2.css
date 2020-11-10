@@ -1,0 +1,12 @@
+/* Three image containers (use 25% for four, and 50% for two, etc) */
+  /* Clear floats after image containers */
+  img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
+  }
+  .grid-container {
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+  }

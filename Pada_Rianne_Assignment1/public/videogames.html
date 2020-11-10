@@ -1,0 +1,233 @@
+<script> var  videogames_products= 
+[
+    {
+    "name": "Isabelle (Animal Crossing)",
+    "price": 4.00,
+    "image": "https://i.ibb.co/fMTkxMz/66-FEFF43-AB59-4885-A1-FC-8-C31-AFACD97-E.jpg"
+    },
+    {
+    "name": "Tom Nook (Animal Crossing)",
+    "price": 5.00,
+    "image": "https://i.ibb.co/YtVs6yR/2989-FDBC-61-E0-4959-9-C14-F578830-A331-E.jpg"
+    }
+]; </script> 
+<script>
+    function isNonNegInt(q, return_errors = false) {
+        errors = []; // assume no errors at first
+        if(q == '') q =0; // handle blank inputs as if they are 0
+        if (Number(q) != q) errors.push('<font color="red">Not a number!</font>'); // Check if string is a number value
+        else if (q < 0) errors.push('<font color="red">Negative value!</font>'); // Check if it is non-negative
+        else if (parseInt(q) != q) errors.push('<font color="red">Not an integer!</font>'); // Check that it is an integer
+        return return_errors ? errors : (errors.length == 0);
+    }
+
+    function checkQuantityTextbox(theTextbox) {
+        errs = isNonNegInt(theTextbox.value, true);
+        if (errs.length == 0) errs = ['You want:'];
+        if (theTextbox.value.trim() == '') errs = ['Quantity'];
+        document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
+    }
+
+    window.onload = function () {
+        let params = (new URL(document.location)).searchParams; // get the query string which has the form data
+        // form was submitted so check that quantities are valid then redirect to invoice if ok.
+        if (params.has('purchase_submit')) {
+            has_errors = false; // assume quantities are valid from the start
+            total_qty = 0; // need to check if something was selected so we will look if the total > 0
+            for (i = 0; i < videogames_products.length; i++) {
+                if (params.has(`quantity${i}`)) {
+                    a_qty = params.get(`quantity${i}`);
+                    // make textboxes sticky in case of invalid data
+                    product_selection_form[`quantity${i}`].value = a_qty;
+                    total_qty += a_qty; 
+                    if(!isNonNegInt(a_qty)) {
+                        has_errors = true; // oops, invalid quantity
+                        checkQuantityTextbox(product_selection_form[`quantity${i}`]); // show where the error is
+                    }
+                }
+            }
+            // Now respond to errors or redirect to invoice if all is ok
+            if(has_errors) {
+                alert("Please enter only valid quantities!");
+            } else if(total_qty == 0) { // no quantity selections, just give a general alert
+                alert("Please select some quantities!");
+            } else { // all good to go!
+                window.location = `./invoice.html${document.location.search}`;
+                window.stop;
+            }
+        }
+    }
+</script>
+<!DOCTYPE html>
+<html>
+<title>Video Games</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="product2.css" rel="stylesheet">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-blue w3-content" style="max-width:1600px">
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container">
+    <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
+      <i class="fa fa-remove"></i>
+    </a>
+    <!--GIRL WITH PEARL EARRING SIDEBAR-->
+    <img src="https://i.ibb.co/FXDqK5k/Girl-with-a-Pearl-Earring.jpg" style="width:75%;" class="w3-round"><br><br>
+    <h4><b>FEATURED</b></h4>
+    <p class="w3-text-grey">Template by W3.CSS</p>
+  </div>
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+
+  <!-- Header -->
+  <header id="portfolio">
+    <a href="#"><img src="/w3images/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+    <div class="w3-container">
+    <h1><b>Rianne's Homeade Earrings</b></h1>
+    <div class="w3-section w3-bottombar w3-padding-16">
+      <span class="w3-margin-right">Filter:</span> 
+      <button class="w3-button"><i class="w3-margin-right"></i><form action="store.html">
+        <input type="submit" value="ALL" />
+    </form></button>
+      <button class="w3-button"><i class="w3-margin-right"></i><form action="holidays.html">
+        <input type="submit" value="Holidays" />
+    </form></button>
+    <button class="w3-button"><i class="w3-margin-right"></i><form action="tv_movie.html">
+      <input type="submit" value="TV/Movies" />
+  </form></button>
+  <button class="w3-button"><i class="w3-margin-right"></i><form action="music.html">
+    <input type="submit" value="Music" />
+</form></button>
+<button class="w3-button"><i class="w3-margin-right"></i><form action="objects.html">
+  <input type="submit" value="Objects" />
+</form></button>
+<button class="w3-button"><i class="w3-margin-right"></i><form action="food.html">
+  <input type="submit" value="Food" />
+</form></button>
+<button class="w3-button"><i class="w3-margin-right"></i><form action="videogames.html">
+    <input type="submit" value="Video Games" />
+    </div>
+  </header>
+  
+  <!-- First Photo Grid-->
+  <div class="w3-row-padding">
+    <div class="w3-third w3-container w3-margin-bottom">
+      <div class="w3-container w3-light-blue">
+        <script>
+          
+            for (i = 0; i < 1; i++) {
+                document.write(`
+                    <section class="item">
+                      <img src="${videogames_products[i].image}">
+                        <h2>${videogames_products[i].name}</h2>
+                        <p>$${videogames_products[i].price}</p>
+                        <label id="quantity${i}_label"}">Quantity</label> <br>
+                        <input type="text" placeholder="0" name="quantity${i}" 
+                        onkeyup="checkQuantityTextbox(this);">
+                        
+                    </section>
+                `);
+            }    
+            
+        </script>
+
+    </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="w3-third w3-container w3-margin-bottom">
+          <div class="w3-container w3-light-blue">
+        
+        <script>
+          
+          for (i = 1; i < 2; i++) {
+              document.write(`
+                  <section class="item">
+                    <img src="${videogames_products[i].image}">
+                      <h2>${videogames_products[i].name}</h2>
+                      <p>$${videogames_products[i].price}</p>
+                      <label id="quantity${i}_label"}">Quantity</label> <br>
+                      <input type="text" placeholder="0" name="quantity${i}" 
+                      onkeyup="checkQuantityTextbox(this);">
+                      
+                  </section>
+              `);
+          }    
+          
+      </script>
+      </div>
+    </div>
+    </div></form>
+    
+    
+  <div class="w3-row-padding">
+    <div class="w3-third">
+      <h3>FOOTER</h3>
+      <p>I'm Rianne. These are actual earrings I've made from scratch. They are inspired by the things and people I love.</p>
+      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </div>
+  
+    <div class="w3-third">
+      <h3>Inspiration</h3>
+      <ul class="w3-ul w3-hoverable">
+        <li class="w3-padding-16">
+          <img src="https://i.ibb.co/hdPgmvG/kissclipart-roxborough-state-park-clipart-trademark-symbol-c60f028f54f575fa.jpg" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">Copyright</span><br>
+          <span>I made the earrings but most of the images are not owned by me</span>
+        </li>
+        <li class="w3-padding-16">
+          <img src="https://i.ibb.co/KrNRZHh/unnamed.jpg" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">Thank you</span><br>
+          <span>Thanks for checking out my page and reading this footer!</span>
+        </li> 
+      </ul>
+    </div>
+
+    <div class="w3-third">
+      <h3>POPULAR TAGS</h3>
+      <p>
+        <span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">New York</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">London</span>
+        <span class="w3-tag w3-grey w3-small w3-margin-bottom">IKEA</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">NORWAY</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">DIY</span>
+        <span class="w3-tag w3-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Baby</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Family</span>
+        <span class="w3-tag w3-grey w3-small w3-margin-bottom">News</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Clothing</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Shopping</span>
+        <span class="w3-tag w3-grey w3-small w3-margin-bottom">Sports</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Games</span>
+      </p>
+    </div>
+
+  </div>
+  </footer>
+  
+  <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+
+<!-- End page content -->
+</div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+
+
+</script>
+
+</body>
+</html>

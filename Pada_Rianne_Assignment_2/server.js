@@ -21,15 +21,15 @@ app.use(myParser.urlencoded({ extended: true })); // Server-side processing
 
 // REFERENCED FROM DANIEL PORT LAB 14
 // Checks if JSON string already exists
-if (fs.existsSync(filename)) {
-    userid = fs.readFileSync(filename, 'utf-8');
-
-    users_reg_data = JSON.parse(userid); //  Takes a string and converts it into object or array
-
-    console.log(users_reg_data);
-} else {
-    console.log(filename + ' does not exist!');
-}
+if (fs.existsSync(filename)) { //enuring that the variable filename exists
+    stats = fs.statSync(filename) //gets the information from user_data.json
+    console.log(filename + 'has' + stats.size + 'characters'); //recording the amount of characters in the console 
+  
+    data = fs.readFileSync(filename, 'utf-8');
+    users_reg_data = JSON.parse(data);
+  } else { 
+    console.log(filename + 'does not exist!'); //if filename doesn't exist showing it in the server
+  }
 // Taken from Lab 14
 // Function used to check for valid quantities
 function isNonNegInt(q, returnErrors = false) {
@@ -94,69 +94,67 @@ app.post("/login_form", function (req, res) {
   });
   
 // REFERENCED FROM RICK KAZMAN + LAB 14
-app.post("/register_form", function (req, res) {
-    qstr = req.body
+app.post("/register_form", function (request, response) {
+    qstr = request.body
     console.log(qstr);
-    var errors = [];
-    // VALIDATION REFERENCED FROM ALYSSA MENCEL
-   
-    fullname = req.body.fullname; // full name is only letters
-    if ((/[a-zA-Z]+[ ]+[a-zA-Z]+/).test(req.body.fullname) == false) {
-       errors.push ("Only use letters and a space for fullname");
+    username = request.body.username;
+    var errors = []; 
+    // REGISTRATION VALIDATION DONE WITH HELP FROM LANDON BARSATAN
+    // validating username
+    if (typeof users_reg_data[username] != 'undefined') {
+       errors.push ("Username is Already in Use"); //if the username exists in the array, user cannot register with it
     }
-    if ((fullname.length > 30) == true) { // full name cannot be more than 30 characters
-       errors.push("Please make your full name shorter. 30 characters max"); 
+    username = request.body.username;
+    if ((/^[0-9a-zA-Z]+$/).test(request.body.username) == false) {
+     // no space characters for username
+       errors.push ("Only numbers/letters for username");
     }
-
-    var reguser = req.body.username.toLowerCase(); // case insensitive, checks in lowercase
-    if (typeof users_reg_data[reguser] != 'undefined') { // username is not undefined meaning it exists, so user cannot register with it
-      errors.push('Username taken')
+    if ((username.length > 10) == true) {
+       errors.push ("Please make your username shorter"); //username cannot be longer than 10 characters
     }
-    
-    if (/^[0-9a-zA-Z]+$/.test(req.body.username)) {
+    if ((username.length < 4) == true) {
+       errors.push ("Please make your username longer"); //username cannot be less than 4 characters
     }
-    else { // username cannot have any space characters
-      errors.push('Letters And Numbers Only for Username')
+    // validating fullname
+    fullname = request.body.fullname; // setting fullname variable
+    if ((/[a-zA-Z]+[ ]+[a-zA-Z]+/).test(request.body.fullname) == false) {
+       errors.push ("Only use letters and a space for full name"); // no numbers for full name, because who has numbers in their legal name anyways? 
     }
-    if ((req.body.username.length > 10)) {
-        errors.push('Username Too Long') // username cannot be more than 10 characters
+    if ((fullname.length > 30) == true) {
+       errors.push ("Please make your full name shorter. 30 characters max"); // full name cannot be over 30 characters
+    }
+    // validating email
+    if ((/[a-z0-9._]+@[a-z0-9]+\.[a-z]+/).test(request.body.email) == false) {
+       errors.push ("Please enter proper email");
+    // validating password
+    }  if (request.body.password.length < 6) {
+        errors.push('Password Too Short') // password has to be at least 6 characters
       }
-    if ((req.body.username.length < 4)) {
-        errors.push('Username Too Short') // username cannot be less than 4 characters
+      
+      if (request.body.password !== request.body.repeat_password) { 
+        errors.push('Password Not a Match') // repeating password must be the same as the original password
       }
-
-    if (req.body.password.length < 6) {
-      errors.push('Password Too Short') // password has to be less than 6 characters
+ 
+    console.log(errors, users_reg_data);
+    if (Object.keys(errors).length == 0) { // no errors, then
+       users_reg_data[username] = {}; // send registration information/variables
+       users_reg_data[username].username = request.body.username
+       users_reg_data[username].password = request.body.password;
+       users_reg_data[username].email = request.body.email;
+       users_reg_data[username].fullname = request.body.fullname;
+       
+       data = JSON.stringify(users_reg_data); // setting data variable
+       fs.writeFileSync(filename, data, "utf-8");
+       response.redirect('./invoice.html?' + queryString.stringify(request.query)+`&username=${username}`); // all things good to go? go to invoice with username and data
+    } else {
+        request.query.errors = errors.join(';');
+        response.redirect('./register.html?' + queryString.stringify(request.query)); // errors? stay on registration page and show errors
     }
-    
-    if (req.body.password !== req.body.repeat_password) { 
-      errors.push('Password Not a Match') // passwords must match
-    }
-    if ((/[a-z0-9._]+@[a-z0-9]+\.[a-z]+/).test(req.body.email) == false) {
-        errors.push ("Please enter proper email") // email has to be correct format
-     }  
-    if (errors.length == 0) { // errors equals zero
-      POST = req.body
-      console.log('no errors') // shows in console
-      var username = POST['username']
-      users_reg_data[username] = {}; 
-      users_reg_data[username].name = username; // no errors? go to invoice form with query
-      users_reg_data[username].password= POST['password'];
-      users_reg_data[username].email = POST['email'];
-      fs.writeFileSync(filename, data, "utf-8");
-      res.redirect('./invoice.html?' + queryString.stringify(req.query));
-    }
-    if (errors.length > 0) {
-        console.log(errors) // setting variables for query vs body
-        req.query.fullname = req.body.fullname;
-        req.query.username = req.body.username;
-        req.query.password = req.body.password;
-        req.query.repeat_password = req.body.repeat_password;
-        req.query.email = req.body.email;
-
-        req.query.errors = errors.join(';'); // if errors, exist, redirect to register page and have them try again.
-        res.redirect('register.html?' + queryString.stringify(req.query));
-    }
-});
-app.use(express.static('./public')); //looks for files in public
-app.listen(8080, () => console.log(`listening on port 8080`)); // shows in console so user knows it works
+ });
+ 
+ app.all('*', function (request, response, next) {
+    console.log(request.method + ' to ' + request.path); 
+    next(); 
+ });
+ app.use(express.static('./public')); // looks for files in public
+ app.listen(8080, () => console.log(`listening on port 8080`)); // shows in console so you know the server works

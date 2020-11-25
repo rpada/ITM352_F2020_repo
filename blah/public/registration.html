@@ -1,0 +1,73 @@
+<!-- Registration Page -->
+<!-- Referenced from Lab 14 as well as from StackExchange and W3Schools -->
+
+<script>
+  let params = (new URL(document.location)).searchParams;
+// REFERENCED FROM LAB 14. DANIEL PORT
+  window.onload = function () { 
+      if (params.has('errors')) { // if errors exists, as detected by the server and the variable 'error,' a message is shown
+          console.log("invalid"); 
+          alert('ERROR! INVALID REGISTRATION \n' + params.get('errors'));
+          // message shows as an alert. the params.get takes whatever error exists in the variable and details to the user 
+          // this is so user knows exactly what is wrong
+      }
+  }    
+</script>
+  
+  <html lang="en">
+  <link href="stylesheet.css" rel="stylesheet">
+  
+  <head>
+    <h1>Landon's Sticker Shop</h1>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up</title>
+  </head>
+  
+  <body>
+  
+    <script>
+      function checkpassword() {
+        var p = f.password.value;
+        var cp = f.repeat_password.value;
+        //checks if both passwords are the same
+        if (p == cp) {
+          response.redirect("invoice.html?"); 
+        } else if (p != cp) {
+          // show error message that says passwords don't match, please retype
+          alert("Passwords Don't Match. Please retype");
+          response.redirect("registration.html?");
+        }
+      }
+    </script>
+  
+    <script>
+    //Tells user what to do if an error is detected
+    //Makes the data sticky when incorrectly inputted
+    //Email: x@y.z format and address contains only numbers, letters and _. in the beginning
+    //Password: Is a minimum of 6 characters, any characters are valid
+    </script>
+  
+    <body>
+      <div>
+        <form name="f" method="POST" action="">
+          <input type="text" name="fullname" size="40" maxlength="30" placeholder="Enter First & Last Name" required
+            title="Only Letters and add a space"><label for="fullname" id="fullname_label"></label><br/>
+          <input type="text" name="username" size="40" required title="Either 4-10 Characters & only numbers/letters"
+            placeholder="Enter Username"><label for="username" id="username_label"></label><br />
+          <input type="email" name="email" size="40" placeholder="Enter Email"><label for="email"
+            id="email_label"></label><br />
+          <input type="password" id="password" name="password" size="40" pattern=".{6,}" required
+            title="6 characters minimum" placeholder="Enter Password"><br />
+          <input type="password" id="repeat_password" name="repeat_password" size="40" pattern=".{6,}" required
+            title="6 characters minimum" placeholder="Enter Password Again"><br />
+          <input type="submit" value="Submit" id="submit" value="checkpassword" onclick="checkpassword()">
+        </form>
+      </div>
+      <script>
+      </script>
+    </body>
+  </body>
+  
+  </html>

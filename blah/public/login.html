@@ -1,0 +1,50 @@
+<!-- Login page, if they are a current user, they will sign in here -->
+<!-- New users can sign up here -->
+
+<!-- Page referenced from Lab 14-->
+<script>
+    // REFERENCED FROM LAB 14, DANIEL PORT
+     let params = (new URL(document.location)).searchParams;
+    window.onload = function () { // sets function
+    if (params.has('LogError')) { // if the LogError variable is present, an alert is sent out
+        alert('Invalid Username or Password'); // alert appears at top of page
+    } 
+}
+  </script>
+<html lang="en">
+<!-- <link href="stylesheet.css" rel="stylesheet"> -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link href="stylesheet.css" rel="stylesheet">
+
+</head>
+
+<h1>Landon's Sticker Shop</h1>
+
+<h2>Login to proceed to checkout!</h2>
+
+<body>
+    <form name="loginform" method="POST">
+        <div>
+            <input type="text" name="username" size="40" placeholder="Username"><br />
+            <input type="password" name="password" size="40" placeholder="Password"><br />
+            <input type="submit" value="login" id="submit"> </div>
+    </form>
+</body>
+
+<h2>Click below to create an account!</h2>
+
+<body>
+    <div>
+        <form action="./registration.html">
+            <input type="submit" value="Register Here" id="regpage" name="register_here">
+        </form>
+    </div>
+
+</body>
+
+</html>

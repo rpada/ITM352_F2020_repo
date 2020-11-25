@@ -1,23 +1,16 @@
 <!--Rianne Pada-->
 <!--Login page. Allows user to enter their information and access their invoice once they login successfully-->
-  <script>
-    // REFERENCED FROM LAB 14, DANIEL PORT + ALYSSA MENCEL
-     let params = (new URL(document.location)).searchParams;
-    window.onload = function () { // sets function
-    if (params.has('LogError')) { // if the LogError variable is present, an alert is sent out
-        alert('Invalid Username or Password'); // alert appears at top of page
-    } 
-    if (loginError == notReg) { // If the loginError equals the same error stored in the variable
-        document.getElementById("usernamelabel").innerHTML = loginError; // Displays username error in usernamelabel
-        loginError = ''; // Resets login error on page refresh
-      }
-      if (params.has("logStickInput")) { // If has user input from query
-        stickTheInput = params.get("logStickInput"); // Gets log and assigns to variable
-        document.getElementById("userBox").value = stickTheInput; // Sets the value of the input box to equal what was entered from the user
-        loginError = ''; // Resets login error on page refresh
-}
+<script>
+// REFERENCED FROM ALYSSA MENCEL
+  let params = (new URL(document.location)).searchParams;
+
+window.onload = function () {
+    if (params.has('LogError')) { // if logerror exists as detected on the server,
+        alert('Invalid Username or Passowrd'); // error alert pops up
     }
+}
   </script>
+  
   <!--LOGIN IN TEMPLATE MADE BY Mohamed Azouaoui https://github.com/azouaoui-med-->
   <!DOCTYPE html>
   <html lang="en" dir="ltr">
@@ -25,12 +18,12 @@
   <head>
    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--scale on page-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title> <!--title on the tab-->
     <!--STYLE SHEETS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> <!--font-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/custom.css">
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="assets/ico/favicon.png">
@@ -38,8 +31,8 @@
   </head>
   
   <body>
-    <div class="login-title text-center"> <!--aligns text in center of page-->
-      <h2><span>Rianne's<br><strong>Handmade Earrings</strong></span></h2> <!--Header/title at top of page, 'handmade earrings' is in bold-->
+    <div class="login-title text-center">
+      <h2><span>Rianne's<br><strong>Handmade Earrings</strong></span></h2> <!--Header/title at top of page-->
 </div>
 <div class="login-content">
   <div class="login-header "> <!--defines div class of header-->
@@ -49,19 +42,19 @@
   </div>
     <form name="loginName" class="login-form" method="POST"> <!--form, when button is clicked it POSTS-->
       <div class="container">
-        <div style="text-align:center"> <!--all text is in the center of the page-->
+        <div style="text-align:center"> 
             <label for="username"><b>Username:</b></label> <!--label above textbox-->
             <input type="text" id="username" name="username" placeholder="Username..." required ><br> <br> <!--text box to submit username-->
             <label for="password"><b>Password:</b></label> <!--label above textbox-->
             <input type="password" placeholder="Password..." name="password" required><br> <!--text box to submit password, hides password text-->
     <br>
-    <div style="text-align:center"> <!-- text is in center of page-->
+    <div style="text-align:center"> 
 </div>
 </form>
 <script> // REFERENCED FROM DANIEL PORT, ASSIGNMENT 1 WORKSHOP 11/19
 login.action="./login_form" + document.location.search;
 </script>
-      <input name="login_submit_button" type="submit" class="logbtn" value="Login"> <!--button for submitting info, if the data is right it does to invoice-->
+      <input name="login_submit_button" type="submit" class="logbtn" value="Login"> <!--code for button-->
   <br>
   <br>
       <div class="bottom-text">
@@ -75,6 +68,6 @@ login.action="./login_form" + document.location.search;
   </html>
   <script>
    // REFERENCED FROM DANIEL PORT ASSIGNMENT 2 WORKSHOP 11/19
-    registrationpage.href = "register.html" + document.location.search; // reference for registration page. when the registration link is pressed, with id Registrationpage, it sends user to registration.html
+    registrationpage.href = "register.html" + document.location.search;
     loginName.action = "./login_form" + document.location.search; //carries quantity data from index.html and puts it into invoice.html
   </script>

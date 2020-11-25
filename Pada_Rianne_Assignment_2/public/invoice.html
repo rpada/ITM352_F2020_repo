@@ -4,33 +4,28 @@
 <script src="./products.js" type="text/javascript"></script>
 
 <script>
-  // Script source from Shane Shimizu
-      // REFERENCED FROM DANIEL PORT LAB 14 AND ASSIGNMENT 1 EXAMPLE
-      let params = (new URL(document.location)).searchParams;
+  //referenced from assignment 1 examples and invoice4
+  let params = (new URL(document.location)).searchParams; //takes data from query called submitPurchase, if it has it then it looks for the quantities
+        var quantities = [];
+        // processing the invoice to create the form from the data entered
+        if (params.has('purchase_submit_button')) { // loop that pulls information
+          for (i = 0; i < products.length; i++) {
+            if (params.has(`quantity${i}`)) {
+              a_qty = params.get(`quantity${i}`);
+              quantities[i] = a_qty;
+            }
+          }
 
-if (params.has('username')) {
-}
-else { // security. you cannot access invoice without logging in. if no username is detected the code can tell you are not logged in
-  alert('Hey! You cant the invoice page without logging in first!')
-  window.location = 'index.html';
-}
-  var quantities = [];
-  if (params.has('purchase_submit_button')) { // if you push the purchase_submit_button, quantities are delivered to invoice
-    for (i = 0; i < products.length; i++) {
-      if (params.has(`quantity${i}`)) { 
-        a_qty = params.get(`quantity${i}`);
-        quantities[i] = a_qty;
-      }
-    }
-  }
-  console.log(quantities);
-</script>
+        } else {
+          window.location.href = './index.html'; // if there is nothing entered in any of the textboxes, send the user back to the product display page to select quantitiy amounts
+        }
+      </script>  
 <!--INVOICE TEMPLATE MADE BY WES COSSICK, https://www.sparksuite.com/open-source/invoice.html-->
 <!doctype html>
 <html>
 <head>
   <!--PERSONALIZATION REFERENCED FROM LANDON BARSATAN-->
-  <script>alert(`Thanks for shopping, ${params.get('username')}!`);
+  <script>alert(`Login successful!`);
   // personalization aspect, gives an alert thanking the person by their username 
   </script> 
 
@@ -149,7 +144,7 @@ else { // security. you cannot access invoice without logging in. if no username
                     </table>
                 </td>
             </tr> <!--REFERENCED FROM LANDON BARSATAN-->
-            <script>document.write(`Thanks ${params.get('username')}!`);</script>
+            <script>document.write(`Thanks ${params.get('name')}!`);</script>
             <tr class="heading">
                 <td>
                 Products <!--Grey bar above invoice-->

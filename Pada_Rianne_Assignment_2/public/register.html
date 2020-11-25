@@ -1,35 +1,15 @@
 <!--Rianne Pada-->
 <!--Page that allows users to make an account and access invoice-->
-<script src="user_data.json" type="text/javascript"></script> <!--using this JSON file. registration info goes into file-->
+<script src="user_registration_info.json" type="text/javascript"></script> <!--using this JSON file. registration info goes into file-->
 <script>
   let params = (new URL(document.location)).searchParams;
 // REFERENCED FROM ALYSSA MENCEL
-window.onload = function () { 
-    // alerting the user of errors from server
-    // all separate alert functions because I couldn't figure out how to combine them
-    if (params.has('password_error')) { // if password_error exists from server
-
-        console.log("invalid");
-        alert('Fix the following errors: \n' + params.get('password_error')); //alert user and tell them what the error was
-    }
-    if (params.has('email_error')) { // if email_error exists from server
-
-        console.log("invalid");
-        alert('Fix the following errors: \n' + params.get('email_error'));//alert user and tell them what the error was
-    }
-    if (params.has('username_error')) {// if username_error exists from server
-
-      console.log("invalid");
-      alert('Fix the following errors: \n' + params.get('username_error'));//alert user and tell them what the error was
-    }
-    if (params.has('fullname_error')) {// if fullname_error exists from server
-      
-      console.log("invalid");
-      alert('Fix the following errors: \n' + params.get('fullname_error'));//alert user and tell them what the error was
-}
-
-}
-
+  window.onload = function () { 
+      if (params.has('errors')) {
+          console.log("invalid");
+          alert('Fix the following errors: \n' + params.get('errors'));
+      }
+  }    
 </script>
 <!--REFERENCED https://www.w3schools.com/howto/howto_css_register_form.asp FOR REGISTER FORM TEMPLATE-->
 <!DOCTYPE html>
@@ -51,21 +31,21 @@ window.onload = function () {
     <div style="text-align:center">  
     <h1>Register</h1> <!--Title-->
     <label for="fullname"><b>Full Name</b></label> <!--Label above form box-->
-    <div class="txtb"> 
-      <div style="text-align:center">  <!--SUBMIT FULL NAME-->
+    <div class="txtb">
+      <div style="text-align:center"> <!--center text-->
       <input id="regfullnamebox" type="text" name="fullname" placeholder= "Full Name" required> <!--textbox-->
     </div>
     <div id="regfullname"></div>
     <br>
     <label for="username"><b>Username</b></label> <!--Label above form box-->
-    <div style="text-align:center">  <!--SUBMIT USERNAME-->
+    <div style="text-align:center">  <!--center text-->
     <div class="txtb">
-      <input id="regusernamebox" type="text" name="username" placeholder="Username" title="Minimum 4 Characters, Maximum 10 Characters, Numbers/Letters Only" required> <!--textbox-->
+      <input id="regusernamebox" type="text" name="username" placeholder="Username" required> <!--textbox-->
     </div>
     <br>
     <label for="email"><b>Email</b></label><!--Label above form box-->
     <div id="regusername"></div>
-    <div style="text-align:center">  <!--SUBMIT EMAIL-->
+    <div style="text-align:center">  <!--center text-->
     <div class="txtb">
       <input id="regemailbox" type="text" name="email" placeholder="Email" required> <!--textbox-->
       <span data-placeholder="Email"></span>
@@ -73,7 +53,7 @@ window.onload = function () {
     <br>
     <label for="password"><b>Create Password</b></label><!--Label above form box-->
     <div id="regemail"></div>
-    <div style="text-align:center">  <!--SUBMIT PASSWORD-->
+    <div style="text-align:center">  <!--center text-->
     <div class="txtb">
       <input type="password" name="password" Placeholder="Password" required><!--textbox-->
       <span data-placeholder="Password"></span>
@@ -81,7 +61,7 @@ window.onload = function () {
     <br>
     <label for="repeat_password"><b>Confirm your password</b></label><!--Label above form box-->
     <div id="regpassword"></div>
-    <div style="text-align:center">  <!--CONFIRM PASSWORD-->
+    <div style="text-align:center">  <!--center text-->
     <div class="txtb">
       <input type="password" name="repeat_password" Placeholder="Confirm Password" required><!--textbox-->
       <span data-placeholder="Confirm Password"></span>
@@ -89,7 +69,7 @@ window.onload = function () {
     <br>
     <div id="regrepeatpassword"></div>
     <br>
-    <div style="text-align:center">  <!--submit data to server-->
+    <div style="text-align:center">  <!--center text-->
     <input name="register_submit_button" type="submit" class="logbtn" value="Sign-up"><!--Submit button-->
   </form>
 <h4>You must register or login in order to access your invoice!</h4> <!--Reminding users they need to register or login, message on registration page-->

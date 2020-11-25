@@ -1,0 +1,104 @@
+
+<!--Alyssa Mencel's Registration Page-->
+<!--used help from lab 14 and ww3schools.com-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        let params = (new URL(document.location)).searchParams;
+
+        window.onload = function () { // creating the function for window.onload
+            //if there are errors it tells the user 
+            if (params.has('errors')) {
+
+                console.log("invalid");
+                alert('Fix the following errors: \n' + params.get('errors'));
+            }
+        }    
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./stylesheets/navbar.css">
+    <link rel="stylesheet" href="./stylesheets/loginregister.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Oswald">
+    <title>Register an Account!</title>
+    <!--this sets the background image and helps style the page-->
+    <style>
+       body {
+        background-image: url(./images/palmtree.jpg);
+       };
+    </style>
+</head>
+
+<body>
+    <!--create navbar, used code from w3schools.com-->
+    <ul>
+        <li style="float:left"><a href="./index.html">Sustainable Outfitters</a></li>
+        <li><a href="./invoice.html">Shopping Cart</a></li>
+        <li><a href="./products_display.html">Products</a></li>
+        <li><a class="active" href="./register.html">Register</a></li>
+      </ul>
+    <h1><mark>  Register an account with Sustainable Outfitters before your purchase!  
+    </mark>
+    </h1>
+    <!--creates the form for users to register, used code from w3schools.com-->
+    <div id='account'>
+      <form id="register_form" class="register-form" method="POST"> <!--form, when button is pushed it POSTS "register_form"-->
+        <div style="text-align:center">  
+        <h1>Register</h1> <!--Title-->
+        <label for="fullname"><b>Full Name</b></label> <!--Label above form box-->
+        <div class="txtb"> 
+          <div style="text-align:center">  <!--SUBMIT FULL NAME-->
+          <input id="regfullnamebox" type="text" name="fullname" placeholder= "Full Name" required> <!--textbox-->
+        </div>
+        <div id="regfullname"></div>
+        <br>
+        <label for="username"><b>Username</b></label> <!--Label above form box-->
+        <div style="text-align:center">  <!--SUBMIT USERNAME-->
+        <div class="txtb">
+          <input id="regusernamebox" type="text" name="username" placeholder="Username" title="Minimum 4 Characters, Maximum 10 Characters, Numbers/Letters Only" required> <!--textbox-->
+        </div>
+        <br>
+        <label for="email"><b>Email</b></label><!--Label above form box-->
+        <div id="regusername"></div>
+        <div style="text-align:center">  <!--SUBMIT EMAIL-->
+        <div class="txtb">
+          <input id="regemailbox" type="text" name="email" placeholder="Email" required> <!--textbox-->
+          <span data-placeholder="Email"></span>
+        </div>
+        <br>
+        <label for="password"><b>Create Password</b></label><!--Label above form box-->
+        <div id="regemail"></div>
+        <div style="text-align:center">  <!--SUBMIT PASSWORD-->
+        <div class="txtb">
+          <input type="password" name="password" Placeholder="Password" required><!--textbox-->
+          <span data-placeholder="Password"></span>
+        </div>
+        <br>
+        <label for="repeat_password"><b>Confirm your password</b></label><!--Label above form box-->
+        <div id="regpassword"></div>
+        <div style="text-align:center">  <!--CONFIRM PASSWORD-->
+        <div class="txtb">
+          <input type="password" name="repeat_password" Placeholder="Confirm Password" required><!--textbox-->
+          <span data-placeholder="Confirm Password"></span>
+        </div>
+        <br>
+        <div id="regrepeatpassword"></div>
+        <br>
+        <div style="text-align:center">  <!--submit data to server-->
+        <input name="register_submit_button" type="submit" class="logbtn" value="Sign-up"><!--Submit button-->
+      </form>
+        </form>
+        <script>
+            Register.action += document.location.search; //saves the query string from the products page for the invoice
+        </script>
+    </div>
+    <!--this is the button that will take users to login if they already have an account-->
+    <input type="button" name="olduser" value="Returning Users Click Here!" class="btn2"
+        onclick="window.location='./login.html' + document.location.search;">
+</body>
+
+</html>

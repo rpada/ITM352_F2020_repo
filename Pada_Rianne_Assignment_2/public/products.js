@@ -25,11 +25,11 @@ var products = [ //products array for data in my shop
     "image": "https://i.ibb.co/0c19k1t/481066-CF-D5-B2-4391-9-D66-CF5-CF012-F16-A.jpg" //image hosted on IMGBB
     },
     {
-    "name": "Milk",
-    "price": 4.00,
-    "image": "https://i.ibb.co/0rnBmZk/329617-BE-AE86-4-FE3-B56-D-8-FA580-AD726-E.jpg" //image hosted on IMGBB
-    },
-    {
+      "name": "Milk",
+      "price": 4.00,
+      "image": "https://i.ibb.co/0rnBmZk/329617-BE-AE86-4-FE3-B56-D-8-FA580-AD726-E.jpg" //image hosted on IMGBB
+      },
+      {
     "name": "Sun and Moon Tarot",
     "price": 4.00,
     "image": "https://i.ibb.co/zR7k3P2/8374657-E-9-C71-450-F-9404-E059-FEDDAD96.jpg" //image hosted on IMGBB

@@ -130,8 +130,10 @@ else { // security. you cannot access invoice without logging in. if no username
         text-align: left;
     }
     </style>
-</head> 
+</head>  
+
 <body> 
+ 
   <!--REFERENCED FROM LANDON BARSATAN-->
     <div class="invoice-box"> <!--invoice box styling-->
         <table cellpadding="0" cellspacing="0">
@@ -146,8 +148,8 @@ else { // security. you cannot access invoice without logging in. if no username
                         </tr>
                     </table>
                 </td>
-            </tr>
-            
+            </tr> <!--REFERENCED FROM LANDON BARSATAN-->
+            <script>document.write(`Thanks ${params.get('username')}!`);</script>
             <tr class="heading">
                 <td>
                 Products <!--Grey bar above invoice-->
@@ -246,3 +248,10 @@ else { // security. you cannot access invoice without logging in. if no username
                 </body>
                 
                 </html>
+                <script>
+    //this section identifies the user from their account 
+      document.write (`
+        <h3 align="center"> Thank you ${username} for purchasing from Sustainable Outfitters!
+          <br> Please review your purchase and submit it below! <h3>
+      `)
+  </script>

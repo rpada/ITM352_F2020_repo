@@ -27,6 +27,7 @@ window.onload = function () {
       console.log("invalid");
       alert('Fix the following errors: \n' + params.get('fullname_error'));//alert user and tell them what the error was
 }
+
 }
 
 </script>
@@ -59,7 +60,7 @@ window.onload = function () {
     <label for="username"><b>Username</b></label> <!--Label above form box-->
     <div style="text-align:center">  <!--SUBMIT USERNAME-->
     <div class="txtb">
-      <input id="regusernamebox" type="text" name="username" placeholder="Username" required> <!--textbox-->
+      <input id="regusernamebox" type="text" name="username" placeholder="Username" title="Minimum 4 Characters, Maximum 10 Characters, Numbers/Letters Only" required> <!--textbox-->
     </div>
     <br>
     <label for="email"><b>Email</b></label><!--Label above form box-->

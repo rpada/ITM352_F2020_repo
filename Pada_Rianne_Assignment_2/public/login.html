@@ -7,7 +7,16 @@
     if (params.has('LogError')) { // if the LogError variable is present, an alert is sent out
         alert('Invalid Username or Password'); // alert appears at top of page
     } 
+    if (loginError == notReg) { // If the loginError equals the same error stored in the variable
+        document.getElementById("usernamelabel").innerHTML = loginError; // Displays username error in usernamelabel
+        loginError = ''; // Resets login error on page refresh
+      }
+      if (params.has("logStickInput")) { // If has user input from query
+        stickTheInput = params.get("logStickInput"); // Gets log and assigns to variable
+        document.getElementById("userBox").value = stickTheInput; // Sets the value of the input box to equal what was entered from the user
+        loginError = ''; // Resets login error on page refresh
 }
+    }
   </script>
   <!--LOGIN IN TEMPLATE MADE BY Mohamed Azouaoui https://github.com/azouaoui-med-->
   <!DOCTYPE html>

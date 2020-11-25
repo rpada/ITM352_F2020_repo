@@ -111,7 +111,7 @@ app.post("/register_form", function (request, response) {
     if ((/[a-z0-9]+/).test(request.body.username) == false) { //space characters for username. letters/numbers only
        errors.username_error = "Only numbers/letters";
     }
-    if ((username.length > 10) == true) {
+    if ((username.length >= 10) == true) {
        errors.username_error = "Please make your username shorter"; //username can't be more than 10 characters
     }
     if ((username.length < 4) == true) {

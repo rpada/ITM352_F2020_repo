@@ -1,0 +1,117 @@
+
+<head>
+    <script src="./functions.js"></script>
+    <script>
+          function isNonNegInt(q, return_errors = false) {
+          errors = []; // assume no errors at first
+          if (q == '') q = 0; // handle blank inputs as if they are 0
+          if (Number(q) != q) errors.push('<font color="red">Not a number!</font>'); // Check if string is a number value
+          else if (q < 0) errors.push('<font color="red">Negative value!</font>'); // Check if it is non-negative
+          else if (parseInt(q) != q) errors.push('<font color="red">Not an integer!</font>'); // Check that it is an integer
+          return return_errors ? errors : (errors.length == 0);
+      }
+      function checkQuantityTextbox(theTextbox) {
+          errs = isNonNegInt(theTextbox.value, true);
+          if (errs.length == 0) errs = ['You want:'];
+          if (theTextbox.value.trim() == '') errs = ['Quantity'];
+          document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
+     }
+     window.onload = function () {
+          let params = (new URL(document.location)).searchParams; // get the query string which has the form data
+          // form was submitted so check that quantities are valid then redirect to invoice if ok.
+          if (params.has('Submit')) {
+              has_errors = false; // assume quantities are valid from the start
+              total_qty = 0; // need to check if something was selected so we will look if the total > 0
+              //For every product in the array, write the product number, display its image and name, and list price
+              for (i = 0; i < products_data[this_product_key].length; i++) {
+                  if (params.has(`quantities${i}`)) {
+                      a_qty = params.get(`quantities${i}`);
+                      // make textboxes sticky in case of invalid data
+                      product_form[`quantities${i}`].value = a_qty;
+                      total_qty += a_qty;
+                      if (!isNonNegInt(a_qty)) {
+                          has_errors = true; // oops, invalid quantity
+                          checkQuantityTextbox(product_form[`quantities${i}`]); // show where the error is
+                      }
+                  }
+              }
+              // Now respond to errors or redirect to invoice if all is ok
+              if (has_errors == true) {
+                  alert("Please enter only valid quantities! Cannot add to cart!");
+              } else if (total_qty == 0) { // no quantity selections, just give a general alert
+                  alert("Please enter only valid quantities! Cannot add to cart!");
+              } 
+              
+          } 
+      }
+        function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+var username = getCookie('username');
+console.log(username);
+if (username != ""){
+    document.write(`<a href="./logout">Logout ${username}</a>`);
+} else {
+    document.write(`<a href="./login">Login</a>`);
+}
+    </script>
+    <script>
+        var products_data;
+        var total = 0;
+        loadJSON('get_products_data', function (response) {
+            // Parsing JSON string into object
+            products_data = JSON.parse(response);
+        });
+        loadJSON('get_cart', function (response) {
+            // Parsing JSON string into object
+            shopping_cart = JSON.parse(response);
+            for (pk in shopping_cart) {
+                total += shopping_cart[pk].reduce((a, b) => a + b);
+            }
+        });
+
+        // get the query string
+        let params = (new URL(document.location)).searchParams;
+        if (params.has('products_key')) {
+            var this_product_key = params.get('products_key');
+        } else {
+            document.write('no products key in query string');
+            document.stop;
+        }
+        nav_bar(this_product_key, products_data);
+    </script>
+</head>
+<h2>You have <span id="cart_total">0</span> items in your shopping cart</h2>
+<script>
+    cart_total.innerHTML = total;
+// This function takes a string assumed to be a key in the products array above to display and select the corresponding products
+    var order_str = '';
+
+    order_str += `<h1>Please select what ${this_product_key} you want</h1><br>`;
+    // We put the whole table in the form so that anything entered in it will get submitted
+    order_str += `<FORM action="/add_to_cart" method="GET">
+                <INPUT TYPE="HIDDEN" NAME="products_key" VALUE="${this_product_key}">
+                    <TABLE BORDER>
+                        <TR><TD><B><BIG>Description</TD><TD><B><BIG>Price</TD><TD><B><BIG>Quantity Desired</TD></TR>`;
+    products = products_data[this_product_key];
+    for (i = 0; i < products.length; i++) {
+        order_str += `<TR><TD>${products[i]['name']}</TD><TD>${products[i]['price']}</TD><TD>
+                    <INPUT TYPE="TEXT"  name="quantities[${i}]"`;
+    }
+    order_str += `</TABLE><br>
+    <INPUT TYPE="SUBMIT"  name="Submit" value="Select">
+    </FORM>`;
+    document.write(order_str);
+</script>

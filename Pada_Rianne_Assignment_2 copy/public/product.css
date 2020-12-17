@@ -1,0 +1,81 @@
+ /*Referenced Daniel Port's Assignment 1 example CSS to make product grid*/
+ /* General */
+ 
+
+ html {
+  
+  font-family: 'Raleway', sans-serif;
+  background-color: lightpink;
+  font-size: 10px;
+  
+}
+
+/* Typography */
+
+
+html {
+  
+  font-family: 'Raleway', sans-serif;
+  background-color: lightpink;
+  font-size: 10px;
+  
+}
+
+
+h1 {
+  font-size: 5rem;
+  background-size: 48px 48px;
+  background-blend-mode: lighten;
+}
+
+h2 {
+  font-size: 2rem;
+  color: black;
+  width: 160px;
+  right: 4%;
+  z-index: 3000;
+  line-height: 2rem;
+  padding-top: 0.3rem;
+}
+
+p {
+  font-size: 1.5rem;
+}
+
+
+/* block styling */
+
+
+header, aside, main, footer {
+  padding: 20px;
+}
+footer h1 {
+  font-style: italic;
+  font-size: 3rem;
+}
+
+aside {
+  flex: 3;
+}
+
+main {
+  flex: 7;
+}
+
+
+/*  Form styling */
+
+main {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+
+/* Styling the products */
+
+.item img {
+    width: 200px;
+    height: 200px; 
+    bottom: 0px;
+}

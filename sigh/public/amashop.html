@@ -1,0 +1,136 @@
+<!--Author: Mark Chou & Faye Miguel -->
+<!--Resources: https://www.w3schools.com; SmartPhoneProducts, Assignment1, Lab13-->
+<!--This page has the code for purchasing AMA merchandise-->
+
+<script src="product_data.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+<title>American Marketing Association</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="style.css">
+<style>
+</style>
+<body>
+
+<!-- Navigation bar code -->
+<nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>American Marketing Association<br>(AMA)</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="./index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
+    <a href="./amalogin.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Login</a> 
+    <a href="./amasignup.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Sign Up</a> 
+  </div>
+</nav>
+
+<!-- This code moves the whole page content to not overlay with the navigation bar -->
+<form name="product_selection_form" action="process_page" method="GET">
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><b>American Marketing Association</b></h1>
+    <h1 class="w3-xxxlarge w3-text-blue"><b>Merchandise Page</b></h1>
+    <hr style="width:50px;border:5px solid blue" class="w3-round">
+  </div>
+  <a href="./amawelcome.html" class="w3-button w3-blue">Back</a>
+  <br><br/>
+
+  <main>
+    <script>
+      for (i = 0; i < products.length; i++) {
+        document.write(`
+          <div class="card">
+            <br>
+          <img src="./images/${products[i].image}" style="max-width:250px">
+      <h1>${products[i].item}</h1>
+      <h3>$${products[i].price}</h3>
+          <label id="quantity${i}_label"}">Quantity:</label>
+          <input type="text"
+              placeholder="0"
+              name="quantity${i}" 
+              onkeyup="checkQuantityTextbox(this);">
+              <br><br/>
+         </div>
+          `);
+      }
+    </script>
+     <br><br/>
+     <input type="submit"
+         class="button"
+         name="purchase_submit" 
+         value="ADD TO CART"
+         >
+  </main>
+</form>
+  
+ 
+<!-- End page content -->
+</div>
+
+<!--The following code gives space between the last item above, and the bottom of the screen -->
+<div class="w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"><a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity"></a></p></div>
+
+<script>
+  function isNonNegInt(q, return_errors = false) {
+      errors = [];
+      if (q == '') q = 0;
+      //The code checks if the value is a number
+      if (Number(q) != q) errors.push('<font color="red">Please enter a number.</font>');
+      //This checks if the value is a positive number        
+      else if (q < 0) errors.push('<font color="red">Please enter a positive value.</font>');
+      //This checks if the value is a whole number
+      else if (parseInt(q) != q) errors.push('<font color="red">Please enter a whole number.</font>');
+      return return_errors ? errors : (errors.length == 0);
+  }
+  function checkQuantityTextbox(theTextbox) {
+      errs = isNonNegInt(theTextbox.value, true);
+      if (errs.length == 0) errs = ['Quantity:'];
+      if (theTextbox.value.trim() == '') errs = ['Quantity'];
+      document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
+  }
+  window.onload = function () {
+      // This code gets the query string and form data.
+      let params = (new URL(document.location)).searchParams;
+      // When the form is submitted, the following code will check if the quantities are valid then it redirects to cart.
+      if (params.has('purchase_submit')) {
+      // Assuming that the quantity is valid and no errors.
+          has_errors = false;
+      // This will check if any quantity is selected by having the number more than 0.
+          total_qty = 0; 
+          for (i = 0; i < products.length; i++) {
+          if (params.has(`quantity${i}`)) {
+              a_qty = params.get(`quantity${i}`);
+      // This code makes the textboxes sticky in case of invalid data
+          product_selection_form[`quantity${i}`].value = a_qty;
+          total_qty += a_qty;
+          if (!isNonNegInt(a_qty)) {
+              has_errors = true;
+              checkQuantityTextbox(product_selection_form[`quantity${i}`]);
+                  }
+              }
+          }
+      //The following gives a message if there is an error or redirect to cart if values are valid
+          if (has_errors) {
+              alert("Re-try and Please enter a valid quantity.");
+          } else if (total_qty == 0) {
+      //Message for no quantities chosen.
+              alert("Re-try and Please select a quantity for the item you want to purchase.");
+          } else {
+      // The following codes allow to redirect to invoice when quantities are valid
+      window.location = `./amainvoice.html${document.location.search}`;
+              window.stop;
+                   }
+               }
+           } 
+       
+       </script>
+
+</body>
+</html>

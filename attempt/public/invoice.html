@@ -1,0 +1,274 @@
+<script>
+  //Code from Invoice 4 + Assignment 1 page
+
+  let params = (new URL(document.location)).searchParams;
+  //getting address information from querystring 
+  send_name = params.get(`send_name`);
+  send_st = params.get(`send_st`);
+  send_city = params.get(`send_city`);
+  send_zip = params.get(`send_zip`);
+  send_country = params.get(`send_country`);
+  send_state = params.get(`send_state`);
+
+  // send user to shop page if there's no querystring, assisted by Yuu
+  if (params.has('send_name') = false) {
+      window.location.href = "./shop.html";
+  }
+</script>
+<!doctype html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <title>Cart</title> <!--Tab title-->
+    <!--Styling the invoice (CSS)-->
+    <style> 
+    .invoice-box { /*creating the box that surrounds the table*/
+        max-width: 800px;
+        margin: auto;
+        padding: 30px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+    
+    .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left; /*formatting table*/
+    }
+    
+    .invoice-box table td {
+        padding: 10px;
+        vertical-align: top;
+    }
+    
+    .invoice-box table tr td:nth-child(2) {
+        text-align: right;
+    }
+    
+    .invoice-box table tr.top table td {
+        padding-bottom: 20px;
+    }
+    
+    .invoice-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+    }
+    
+    .invoice-box table tr.information table td {
+        padding-bottom: 40px;
+    }
+    
+    .invoice-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+    }
+    
+    .invoice-box table tr.details td {
+        padding-bottom: 20px;
+    }
+    
+    .invoice-box table tr.item td{
+        border-bottom: 1px solid #eee;
+    }
+    
+    .invoice-box table tr.item.last td {
+        border-bottom: none;
+    }
+    
+    .invoice-box table tr.total td:nth-child(2) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        
+        .invoice-box table tr.information table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+    }
+    
+    /** RTL **/
+    .rtl {
+        direction: rtl;
+        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; 
+    }
+    
+    .rtl table {
+        text-align: right;
+    }
+    
+    .rtl table tr td:nth-child(2) {
+        text-align: left;
+    }
+    .topnav {
+      overflow: hidden;
+      background-color: coral;
+    }
+    
+    .topnav a {
+      float: left;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 17px;
+    }
+    /* Changes color on hover*/
+    .topnav a:hover {
+      background-color: #7A8B8B;
+      color: black;
+    }
+    </style>
+</head>  
+<div class="topnav"> 
+    <a class="active" href="./index.html">Home</a> 
+    <a class="active" href="./all.html">All</a> 
+    <a href="./tvmovie.html">TV, Movies and Music</a> 
+    <a href="./videogame.html">Video Game</a> 
+    <a href="./holidays.html">Holidays</a>
+    <a href="./objectfood.html">Objects and Food</a> 
+    <a href="./cart.html">Cart</a>
+    
+</div>
+<div class="invoice-box"> <!--invoice box styling-->
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="title"> <!--thank you gif above invoice-->
+                            <img src="https://i.ibb.co/HhVjrGb/4f92fe4ee07e79bc3495e41bb5ae1bd3.gif" style="width:100%; max-width:300px;">
+                        </td>
+                        <td style="text-align: right;" width="50%">Invoice</div></td> <!--invoice title, upper righthand corner-->
+                    </tr>
+                </table>
+                <script>document.write(`Thanks ${params.get('user')}!`);</script>
+ <tbody>
+                        <table border="0">
+                        <th style="text-align: left;" width="43%">Earrings</th> 
+                        <th style="text-align: center;" width="11%">Quantity</th> 
+                        <th style="text-align: right;" width="13%">Price</th> <!--Invoice subtitles-->
+                        <th style="text-align: right;" width="54%">Extended Price</th>
+                        </tr> 
+                    </tbody>  
+              <script> // writing the quantities in the invoice
+                subtotal = 0
+                for (product_type in products) {
+                  if ( typeof cart[product_type] == 'undefined') {
+                      continue;
+                  }
+                }
+                for (i = 0; i <  products[product_type].length; i++) {
+                  if (cart[product_type][`quantity${i}`] > 0) { // if quantities exist, calculate extended price and subtotal
+                  extended_price = cart[product_type][`quantity${i}`] * products[product_type][i].price
+                  subtotal += extended_price; 
+                  // write out data into the invoice
+                  document.write(`
+            <tr>
+                <td width="43%">${products[product_type][i].product}</td>
+              <td align="center" width="11%">${cart[product_type][`quantity${i}`]}</td>
+              <td width="13%" align=right>\$${products[product_type][i].price}</td>
+              <td width="54%" align=right>\$${extended_price}</td>
+            </tr>
+            `);
+                }
+               }
+              // Compute tax
+              var tax_rate = 0.0575;
+              var tax = tax_rate * subtotal;
+      
+              // Compute shipping
+              if (subtotal <= 100) {
+                shipping = 5; // if subtotal is less than $100, shipping is $5
+              }
+              else if (subtotal <= 500) {
+                shipping = 7; // if subtotal is more than $100 but less than $500, shipping is $7
+              }
+              else {
+                shipping = 0.04 * subtotal; // 4% of subtotal
+              }
+      
+              // Compute grand total
+              var total = subtotal + tax + shipping;
+
+
+                 </script>
+                      <script>
+                        // Write out subtotal
+                        document.write(`
+                                <tr>
+                                    <td style="text-align: right;" colspan="3" width="67%">Sub-total</td>
+                                    <td style="text-align: right;" style="align: right;" width="54%">\$${subtotal.toFixed(2)}</td>
+                                </tr>
+                                `);
+                      </script>
+                      <script>
+                        // Write out tax amount
+                        document.write(`
+                                <tr>
+                                    <td style="text-align: right;" colspan="3" width="67%"><span style="font-family: arial;">Tax @${tax_rate_num.toFixed(2)}%</span></td>
+                                    <td style="text-align: right;" width="54%">\$${tax.toFixed(2)}</td>
+                                </tr>
+                                `);
+                      </script>
+                      <script>
+                        // Write out shipping amount
+                        document.write(`
+                                  <tr>
+                                      <td style="text-align: right;" colspan="3" width="67%"><span style="font-family: arial;">Shipping</span></td>
+                                      <td style="text-align: right;" width="54%">\$${shipping.toFixed(2)}</td>
+                                  </tr>
+                                  `);
+                      </script>
+                      <script>
+                        // Write out total amount
+                        document.write(`
+                                <tr>
+                                    <td style="text-align: right;" colspan="3" width="67%"><strong>Total</strong></td>
+                                    <td style="text-align: right;" width="54%"><strong>\$${total.toFixed(2)}</strong></td>
+                                </tr>
+                                `);
+                              </script>
+                      <tr>
+                        <td colspan="4" width="100%"> <!--Shipping message at the bottom of invoice-->
+                          <em>OUR SHIPPING POLICY IS:</em>
+                          <br>A subtotal <b>$0 - $99.99</b> will be <b>$5 shipping</b>
+                          <br>A subtotal <b>$100 - $499.99</b> will be <b>$7 shipping</b>
+                          <br>Subtotals over <b>$500</b> will be charged <b>5% of the subtotal amount</b>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+  <div>
+      <main>
+          <div class="thankyou">
+              <p><u>Shipping information</u></p>
+              <script>
+                  document.write(`<p>
+          ${send_name}<br>
+          ${send_st}<br>
+          ${send_city}, ${send_country} ${send_zip}<br>
+          ${send_state}</p>
+          `);
+              </script>
+          </div>
+      </main>
+  </div>
+</body>
+
+</html>

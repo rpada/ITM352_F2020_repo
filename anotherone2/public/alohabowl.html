@@ -1,0 +1,53 @@
+<!--
+Authors: Shane Shimizu, Daniel Francis Barit, Kiara Fairbairn
+File Description: Aloha Bowl Page
+Date: December 19, 2019
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="products.js"></script>
+    <script src="addtocart.js"></script>
+    <script src="userproducts.js"></script>
+</head>
+
+<body>
+    <header class="main-header">
+        <nav class="main-nav nav">
+            <ul>
+                <!--navigation bar with linkes to different pages-->
+                <li><a href="index.html"><img src="Images/brandlogo.png" class="brandlogo"></a></li>
+                <li></li>
+                <!--added space for design-->
+                <li></li>
+                <!--added space for design-->
+                <li><a href="store.html">BACK TO SHOP</a></li>
+                <li><a href="index.html">H O M E</a></li>
+                <li><a href="store.html">S H O P</a></li>
+                <li><a href="cart.html">C A R T</a></li>
+                <li><a href="login.html">L O G I N</a></li>
+
+
+            </ul>
+        </nav>
+        <h1 class="title-name title-name-large">Aloha Bowl</h1>
+    </header>
+    <section class="container content-section">
+        <div class="shop-items">
+            <!--calls function to display products on page-->
+            <script>displayAlohaBowl();</script>
+        </div>
+        <!--when user clicks on the "Add To Cart Button", it calls the function to add this item to cart/setItem in localStorage-->
+        <button class="btn btn-primary btn-purchase" type="submit" name="add_cart" id="cartName"
+            onclick="addAlohaBowlToCart();">Add To Cart</button>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+<script>
+   //Referenced from assignment 1 examples
+   function isNonNegInt(q, return_errors = false) {
+       errors = []; // assume no errors at first
+       if (q == '') q = 0; // handle blank inputs as if they are 0
+       if (Number(q) != q) errors.push('<font color="red">Not a number!</font>'); // Check if string is a number value
+       else if (q < 0) errors.push('<font color="red">Negative value!</font>'); // Check if it is non-negative
+       else if (parseInt(q) != q) errors.push('<font color="red">Not an integer!</font>'); // Check that it is an integer
+       return return_errors ? errors : (errors.length == 0);
+   }
+   function checkQuantityTextbox(theTextbox) {
+       errs = isNonNegInt(theTextbox.value, true);
+       if (errs.length == 0) errs = ['You want:'];
+       if (theTextbox.value.trim() == '') errs = ['Quantity'];
+       document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
+  }
+  //Add to session, from the amount in the cart
+  function add_to_cart (i) {
+   var incart = product_main_display[`quantity${i}`].value; 
+   if (isNonNegInt(incart) = true) { 
+       sessionStorage['products${i}'] = incart;
+       console.log(incart) 
+   } 
+   
+
+
+  }
+
+   window.onload = function () {
+       let params = (new URL(document.location)).searchParams; // get the query string which has the form data
+       // form was submitted so check that quantities are valid then redirect to invoice if ok.
+       if (params.has('submitPurchase')) {
+           has_errors = false; // assume quantities are valid from the start
+           total_qty = 0; // need to check if something was selected so we will look if the total > 0
+           //For every product in the array, write the product number, display its image and name, and list price
+           for (i = 0; i < products.length; i++) {
+               if (params.has(`quantity${i}`)) {
+                   a_qty = params.get(`quantity${i}`);
+                   // make textboxes sticky in case of invalid data
+                   product_form[`quantity${i}`].value = a_qty;
+                   total_qty += a_qty;
+                   if (!isNonNegInt(a_qty)) {
+                       has_errors = true; // oops, invalid quantity
+                       checkQuantityTextbox(product_form[`quantity${i}`]); // show where the error is
+                   }
+               }
+           }
+           // Now respond to errors or redirect to invoice if all is ok
+           if (has_errors) {
+               alert("Please enter only valid quantities!");
+           } else if (total_qty == 0) { // no quantity selections, just give a general alert
+               alert("Please select some quantities!");
+           } else { // all good to go!
+               window.location = `./login.html.html${document.location.search}`; //Redirects itself
+               window.stop;
+           }
+       }
+   }
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <title>Shop | E-Shopper</title>
+   <script src="products.js"></script>
+   <script src="addtocart.js"></script>
+   <script src="userproducts.js"></script>
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+   <link href="css/font-awesome.min.css" rel="stylesheet">
+   <link href="css/prettyPhoto.css" rel="stylesheet">
+   <link href="css/price-range.css" rel="stylesheet">
+   <link href="css/animate.css" rel="stylesheet">
+   <link href="css/responsive.css" rel="stylesheet">
+   <link href="css/product.css" rel="stylesheet">
+   <!--[if lt IE 9]>
+   <script src="js/html5shiv.js"></script>
+   <script src="js/respond.min.js"></script>
+   <![endif]-->       
+   <link rel="shortcut icon" href="images/ico/favicon.ico">
+   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+   <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <style>
+       header{
+           text-align: center;
+           margin-bottom: 30px;
+       }
+       form{
+   text-align: center;
+}
+   input[type=submit] {
+       font-weight: bold;
+       font-size: 20px;
+       color:black;
+       margin-top: 25px;
+   }
+
+  /* styling the navbar */
+   .topnav {
+     overflow: hidden;
+     background-color: #ffb6c1;
+   }
+   
+   .topnav a {
+     float: left;
+     color: #f2f2f2;
+     padding: 14px 16px;
+     font-size: 17px;
+   }
+   /* Changes color on hover*/
+   .topnav a:hover {
+     background-color: #FF69B4	;
+     color: black;
+   }
+   body {
+background-color: #FFF0F5;
+   }
+   </style>
+</head><!--/head-->
+
+<body>
+       <div class="header-middle"><!--header-middle-->
+           <div class="container">
+               <div class="row">
+                   <div class="col-md-4 clearfix">
+                       <div class="logo pull-left">
+                           <a href="index.html"><img src="" alt="" /></a>
+                       </div>
+                       <div class="btn-group clearfix">
+                           <div class="btn-group">
+                               <h1>Rianne's Handmade Earrings</h1>
+                           </div>
+                           
+                       
+                   </div>
+               </div>
+           </div>
+   </header>
+
+
+<body>
+   <div class="topnav"> 
+       <a class="active" href="./index.html">Home</a>
+       <a href="./login.html">Log In</a>
+        <a href="./cart.html">Cart</a>
+   
+     </div>
+     
+        <div class="row">
+            <div class="column"></div>
+            <div class="column"></div>
+        </div>
+        <div>
+
+            <main>
+                <script>
+                    for (i = 0; i < products.length; i++) {
+                             document.write(`
+                       <section class="item">
+                        <img src="${products[i].image}">  
+                         <h2>${products[i].name}</h2> 
+                         <p>$${products[i].price}</p> 
+                         <label id="quantity${i}_label"}">Quantity</label> <br>
+                         <input type="text" placeholder="0" name="quantity${i}" 
+                         onkeyup="checkQuantityTextbox(this);"> <br>
+                         </section>`   
+       );        
+                         }
+               </script>
+            </main>
+        </div>
+        <footer>
+            <button class="btn btn-primary btn-purchase" type="submit" name="add_cart" id="cartName"
+            onclick="addManaBowlToCart()">Add To Cart</button>
+            <input type="submit" value="Add to cart" name="submitcart" onclick="add_to_cart">
+        </footer>
+</body>
+
+</html>

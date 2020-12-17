@@ -1,0 +1,153 @@
+<!--Rianne Pada-->
+<!--Page that allows users to make an account and access invoice-->
+<script src="user_registration_info.json" type="text/javascript"></script> <!--using this JSON file. registration info goes into file-->
+<script>
+  let params = (new URL(document.location)).searchParams;
+// REFERENCED FROM ALYSSA MENCEL
+  window.onload = function () { 
+      if (params.has('errors')) {
+          console.log("invalid");
+          alert('Fix the following errors: \n' + params.get('errors'));
+      }
+  }    
+</script>
+<!--REFERENCED https://www.w3schools.com/howto/howto_css_register_form.asp FOR REGISTER FORM TEMPLATE-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <style>
+        
+        body {
+	background-image: url("https://i.ibb.co/YZQcSMt/space-pattern.gif"); /*gif that runs on reg page background*/
+	font-family: 'Concert One', cursive;font-size: 22px; /*the bubbly font on registration page*/
+   }
+   .white-box { /*white box surrounding the reg forms*/
+	/*font and color details*/
+    background-color: white;
+	color: black;
+	padding: 16px 16px;
+	width: 509px; height: 620px; margin-left: auto; margin-right: auto; 
+	position: relative;
+    left: 400px 
+   }
+    .topnav {
+      overflow: hidden;
+      background-color: purple;
+    }
+    
+    .topnav a {
+      float: left;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+    /* Changes color on hover*/
+    .topnav a:hover {
+      background-color: #7A8B8B;
+      color: black;
+    }
+    </style>
+  <meta charset="utf-8">
+  <title>Register</title> <!--Name that appears on tab -->
+  <link rel="stylesheet" href="register.css"> <!--style sheet for page-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet"> <!--Font by google fonts-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div class="topnav"> 
+        <a class="active" href="./index.html">Home</a> 
+        <a class="active" href="./all.html">All</a> 
+        <a href="./tvmovie.html">TV, Movies and Music</a> 
+        <a href="./videogame.html">Video Game</a> 
+        <a href="./holidays.html">Holidays</a>
+        <a href="./objectfood.html">Objects and Food</a> 
+        <script>
+          function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  var username = getCookie('username');
+  console.log(username);
+  if (username != ""){
+      document.write(`<a href="./logout">Logout ${username}</a>`);
+  } else {
+      document.write(`<a href="./login">Login</a>`);
+  }
+      </script>
+        <a href="./cart.html">Cart</a>
+        
+    </div>
+        
+  <div class="white-box"> <!--https://stackoverflow.com/questions/41560946/adding-a-white-box-for-content-over-a-background-image-->
+ <!--REFERENCED FROM W3 SCHOOLS https://www.w3schools.com/howto/howto_css_register_form.asp-->
+  <form id="register_form" class="register-form" method="POST"> <!--form, when button is pushed it POSTS "register_form"-->
+    <div style="text-align:center">  
+    <h1>Register</h1> <!--Title-->
+    <label for="fullname"><b>Full Name</b></label> <!--Label above form box-->
+    <div class="txtb">
+      <div style="text-align:center"> <!--center text-->
+      <input id="regfullnamebox" type="text" name="fullname" placeholder= "Full Name" required> <!--textbox-->
+    </div>
+    <div id="regfullname"></div>
+    <br>
+    <label for="username"><b>Username</b></label> <!--Label above form box-->
+    <div style="text-align:center">  <!--center text-->
+    <div class="txtb">
+      <input id="regusernamebox" type="text" name="username" placeholder="Username" required> <!--textbox-->
+    </div>
+    <br>
+    <label for="email"><b>Email</b></label><!--Label above form box-->
+    <div id="regusername"></div>
+    <div style="text-align:center">  <!--center text-->
+    <div class="txtb">
+      <input id="regemailbox" type="text" name="email" placeholder="Email" required> <!--textbox-->
+      <span data-placeholder="Email"></span>
+    </div>
+    <br>
+    <label for="password"><b>Create Password</b></label><!--Label above form box-->
+    <div id="regemail"></div>
+    <div style="text-align:center">  <!--center text-->
+    <div class="txtb">
+      <input type="password" name="password" Placeholder="Password" required><!--textbox-->
+      <span data-placeholder="Password"></span>
+    </div>
+    <br>
+    <label for="repeat_password"><b>Confirm your password</b></label><!--Label above form box-->
+    <div id="regpassword"></div>
+    <div style="text-align:center">  <!--center text-->
+    <div class="txtb">
+      <input type="password" name="repeat_password" Placeholder="Confirm Password" required><!--textbox-->
+      <span data-placeholder="Confirm Password"></span>
+    </div>
+    <br>
+    <div id="regrepeatpassword"></div>
+    <br>
+    <div style="text-align:center">  <!--center text-->
+    <input name="register_submit_button" type="submit" class="logbtn" value="Sign-up"><!--Submit button-->
+  </form>
+<h4>You must register or login in order to access your invoice!</h4> <!--Reminding users they need to register or login, message on registration page-->
+</div>
+</body>
+
+</html>
+<script>
+ //REFERENCED FROM DANIEL PORT'S ASSIGNMENT 2 WORKSHOP, 11/19
+ //Carries quantity data into the POST action "/register_form" putting the data onto the invoice
+  register_form.action = "/register_form" + document.location.search;
+</script>

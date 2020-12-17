@@ -1,0 +1,10 @@
+<!-- Code taken from Lab 15 -->
+
+<script>
+    app.get('/use_session', function (request, response) {
+        console.log('In GET /use_session' , request.cookies);
+        var the_sess_id = request.session.id;
+        response.send('welcome, your session ID is ' + the_sess_id); //Sets name = express
+        request.session.destroy();
+    });    
+    </script>

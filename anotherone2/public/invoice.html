@@ -1,0 +1,265 @@
+<!--
+Authors: Shane Shimizu, Daniel Francis Barit, Kiara Fairbairn
+File Description: invoice page that uses local storage and displays products the user purchased after adding items to cart and logging in
+Date: December 19, 2019
+-->
+<script src=products.js type="text/javascript"></script>
+<script src=store.js type="text/javascript"></script>
+<script src="login.js" type="text/javascript"></script>
+<script>
+	//Source from Professor Daniel Ports Assignment 1 Invoice
+	let params = (new URL(document.location)).searchParams; //gets query string that has form data and returns URLsearchparams objects to be able to get query
+	var quantities = [];//makes the variables quantities into an array
+
+	//Source W3 Schools localStorage: https://www.w3schools.com/jsref/prop_win_localstorage.asp
+	// form was submitted so process the invoice
+	storedAlohaBowlCart = JSON.parse(localStorage.getItem("alohaBowlCart"));
+	storedManaBowlCart = JSON.parse(localStorage.getItem("manaBowlCart"));
+	storedWomensShirtCart = JSON.parse(localStorage.getItem("womensShirtCart"));
+	storedMensShirtCart = JSON.parse(localStorage.getItem("mensShirtCart"));
+	storedWomensSleeveCart = JSON.parse(localStorage.getItem("womensSleeveCart"));
+	storedMensSleeveCart = JSON.parse(localStorage.getItem("mensSleeveCart"));
+	storedWomensJacketCart = JSON.parse(localStorage.getItem("womensJacketCart"));
+	storedMensJacketCart = JSON.parse(localStorage.getItem("mensJacketCart"));
+	storedHatCart = JSON.parse(localStorage.getItem("hatCart"));
+	storedBagCart = JSON.parse(localStorage.getItem("bagCart"));
+	storedChainCart = JSON.parse(localStorage.getItem("chainCart"));
+	storedBottleCart = JSON.parse(localStorage.getItem("bottleCart"));
+
+	if (params.has("displayDiscount")) { //if document has displayDiscount with query string
+		var existsThis = true; //declare a variable for if statement
+		function showDiscountSent() { //function that displays that discount was applied on screen
+			if (existsThis == true) { //if exists is true
+				document.write('5$ Discount Applied at Login'); //write message to user that discount was applied at login
+			}
+		}
+		//pushes the products stored in localStorage into storedUsersCartArray
+		storedUsersCartArray.push(storedAlohaBowlCart);
+		storedUsersCartArray.push(storedManaBowlCart);
+		storedUsersCartArray.push(storedWomensShirtCart);
+		storedUsersCartArray.push(storedMensShirtCart);
+		storedUsersCartArray.push(storedWomensSleeveCart);
+		storedUsersCartArray.push(storedMensSleeveCart);
+		storedUsersCartArray.push(storedWomensJacketCart);
+		storedUsersCartArray.push(storedMensJacketCart);
+		storedUsersCartArray.push(storedHatCart);
+		storedUsersCartArray.push(storedBagCart);
+		storedUsersCartArray.push(storedChainCart);
+		storedUsersCartArray.push(storedBottleCart);
+	} else { //else the continue to push products into the array
+		storedUsersCartArray.push(storedAlohaBowlCart);
+		storedUsersCartArray.push(storedManaBowlCart);
+		storedUsersCartArray.push(storedWomensShirtCart);
+		storedUsersCartArray.push(storedMensShirtCart);
+		storedUsersCartArray.push(storedWomensSleeveCart);
+		storedUsersCartArray.push(storedMensSleeveCart);
+		storedUsersCartArray.push(storedWomensJacketCart);
+		storedUsersCartArray.push(storedMensJacketCart);
+		storedUsersCartArray.push(storedHatCart);
+		storedUsersCartArray.push(storedBagCart);
+		storedUsersCartArray.push(storedChainCart);
+		storedUsersCartArray.push(storedBottleCart);
+
+	}
+
+
+
+	if (storedUsersCartArray != null) { //if the entire storedUsersCartArray does not equal to no values
+		var updatedCartArray = storedUsersCartArray.filter(function (el) { return el; }); //filter the no value indexes out and store into a new variable
+	}
+
+	if (params.has('purchase_submit')) { //if the form has purchase_submit
+		for (i = 0; i < products.length; i++) {
+			if (params.has(`quantity${i}`)) { //if the form has quantity(i)
+				a_qty = params.get(`quantity${i}`); //quantity(i) is assigned into a_qty
+				quantities[i] = a_qty; //a_qty is placed into the array
+			}
+		}
+	} else {
+		//document.write('no form submitted'); //displays when no form is submitted
+		alert("Add some items, then come back to check out!");
+		window.location.href = "store.html";
+	}
+	console.log(quantities); //displays quantities array in the console
+
+	//source Professor Port's office hours
+	window.onload = function () { //when the page loads
+		emptyName = document.getElementById("showFullName").innerHTML; //get the innner html of the given ID and assigsn into a variable
+		compareVar = 0; //create variable to compare to emptyname variable
+
+		if (params.has("stickFullname")) { //if has stickFullname
+			displayName = params.get("stickFullname"); //get the information from the query 
+			document.getElementById("showFullName").innerHTML = displayName; //sets the inner html to display the username
+		} else if (emptyName == compareVar) { //if the inner html does not change from 0 or 0==0
+			alert('You will be redirected to previous page.  Please login or register first');
+			javascript: history.go(-1) //redirect user back to login page
+		}
+		if (params.has("stickEmail")) {
+			displayEmail = params.get("stickEmail"); //get the information from the query; email
+			document.getElementById("showEmail").innerHTML = displayEmail; //display the users email
+
+		}
+		if (params.has("stickUsername")) {
+			displayUserName = params.get("stickUsername"); //get the information from the query; username
+			document.getElementById("showUserName").innerHTML = displayUserName; //display the user's user name
+		}
+
+	}
+</script>
+
+<!--Invoice layout source from: https://codepen.io/tjoen/pen/vCHfu -->
+<!DOCTYPE html>
+<html class="htmltwo">
+
+<head>
+	<meta charset="utf-8">
+	<title>Invoice</title>
+	<link rel="stylesheet" href="./styles.css">
+	<link rel="license" href="https://www.opensource.org/licenses/mit-license/">
+</head>
+
+<body class="bodytwo">
+	<header class="headertwo">
+		<h1 class="hOne">SHANES SURF SHOP: INVOICE</h1>
+		<div class="shanelogo">
+			<p><img src="Images/shanelogo2.png"></p>
+		</div>
+		<div class="userinfo">
+			USER INFO:
+			<p><b>Email: </b>
+				<div id="showEmail"></div>
+			</p>
+			<p><b>Username:</b>
+				<div id="showUserName"></div>
+			</p>
+		</div>
+	</header>
+	<article>
+		<h1 class="hOne">Recipient</h1>
+		<address>
+			<p>Thank you,<div id="showFullName">0</div>for your purchase!<br>
+				<div class="emphasis">Shanes Surf Shop</div></em>
+			</p>
+			<p style="color: white">_______________</p>
+			<p id="discountWord"
+				style="font-weight: normal; font-style: italic; font-size: 15px; color:rgb(22, 169, 236);">
+				<!--calls showDiscountSent function and will display discount message if the document has displayDiscount query-->
+				<script>
+					if (params.has("displayDiscount")){ //if document has displayDiscount
+						showDiscountSent(); //call the funtion to display the discount message
+					}
+				</script>
+			</p>
+		</address>
+		<table class="meta">
+			<tr>
+				<th>Date</span></th>
+				<td id="invoicedate">date</td>
+				<!--displays date-->
+				<script>document.getElementById("invoicedate").innerHTML = date;</script>
+			</tr>
+		</table>
+		<table class="inventory">
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Quantity</th>
+					<th>Price</th>
+					<th>Extended Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<div id="resetPage">
+					<!--Source from Professor Daniel Ports Invoice on Assignment 1-->
+					<script>
+						subtotal = 0;
+						//for loop to display products in table each having its own row
+						for (i = 0; i < updatedCartArray.length; i++) {
+							if (quantities[i] > 0) {
+								// product row
+								extended_price = quantities[i] * updatedCartArray[i].price  //compute extended price
+								subtotal += extended_price; //compute subtotal
+								//displays products(i) model, quantities, price, and extended_price into the table in its own row
+								document.write(`
+              <tr>
+                <td width="43%">${updatedCartArray[i].name}</td>
+                <td align="center" width="11%">${quantities[i]}</td>
+                <td width="13%">\$${updatedCartArray[i].price.toFixed(2)}</td>
+                <td width="54%">\$${extended_price.toFixed(2)}</td>
+              </tr>
+              `);
+							}
+						}
+						// Compute tax
+						var tax_rate = 0.04;
+						var tax = tax_rate * subtotal;
+
+						// Compute shipping
+						if (subtotal < 30) { //if subtotal is less than 200
+							shipping = 7;
+						}
+						else if (subtotal < 60) { //if subtotal is less than 400
+							shipping = 10;
+						}
+						else {
+							shipping = 0.03 * subtotal; // else 2% of subtotal
+						}
+
+						// Compute grand total
+						var total = subtotal + tax + shipping;
+						var updatedTotal = total - 5.00;
+					</script>
+				</div>
+			</tbody>
+		</table>
+
+		<table class="balance">
+			<tr>
+				<th>Sub-total</th>
+				<td>$
+					<script>document.write(subtotal.toFixed(2));</script>
+				</td>
+				<!--displays subtotal to 2 decimal places-->
+			</tr>
+			<tr>
+				<th>Tax @
+					<script>document.write(100 * tax_rate);</script>%</th>
+				<td>$
+					<script>document.write(tax.toFixed(2));</script>
+				</td>
+				<!--displays tax to 2 decimal places-->
+			</tr>
+			<tr>
+				<th>Delivery Fee</th>
+				<td>$
+					<script>document.write(shipping.toFixed(2));</script>
+				</td>
+				<!--display shipping to 2 decimal places-->
+			</tr>
+			<tr>
+				<th class="invoicetotalhead">Total</th>
+				<td class="invoicetotal">$
+					<script>
+						if (params.has("displayDiscount")) { //if document has displayDiscount query, subtract 5 from the total
+							document.write(total.toFixed(2) - 5.00);
+						} else { //else the document does not have displayDiscount
+							document.write(total.toFixed(2)); //write the normal price
+						}
+					</script>
+				</td>
+				<!--displays grand total to 2 decimal places-->
+			</tr>
+		</table>
+	</article>
+	<aside>
+		<h1 class="hOne">OUR DELIVERY FEE POLICY</h1>
+		<div>
+			<!--shipping rates-->
+			<br>A subtotal $0 - $29 will be $7 Delivery Fee
+			<br>A subtotal $30 - $60 will be $10 Delivery Fee
+			<br>Subtotals over $60 will be charged 3% of the subtotal amount
+		</div>
+	</aside>
+</body>
+
+</html>

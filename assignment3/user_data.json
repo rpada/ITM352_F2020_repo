@@ -1,0 +1,102 @@
+{
+  "312345": {
+    "name": "3",
+    "password": "barpburger",
+    "email": "3@gmail.com"
+  },
+  "itm352": {
+    "name": "ITM 352 Grader",
+    "password": "grader",
+    "email": "dport@hawaii.edu"
+  },
+  "rpada": {
+    "name": "Rianne Pada",
+    "password": "123456",
+    "email": "rpada@hawaii.edu"
+  },
+  "rpadala": {
+    "name": "Rianne Pada",
+    "password": "barp1234",
+    "email": "rilorie@gmail.com"
+  },
+  "abbyw1": {
+    "name": "Rianne Pada",
+    "password": "abbyw12",
+    "email": "rilorie@gmail.com"
+  },
+  "dbowie": {
+    "name": "David Bowie",
+    "password": "starboy",
+    "email": "starman@gmail.com"
+  },
+  "zuceb": {
+    "name": "Zuce Byrd",
+    "password": "zuce123",
+    "email": "zuceb@gmail.com"
+  },
+  "zucebyrd": {
+    "name": "Zuce Byrd",
+    "password": "zuce123",
+    "email": "zuceb@gmail.com"
+  },
+  "zuce1": {
+    "name": "Zuce Byrd",
+    "password": "zuce123",
+    "email": "zuceb@gmail.com"
+  },
+  "arig": {
+    "name": "Ariana Grande",
+    "password": "ariana123",
+    "email": "ari@gmail.com"
+  },
+  "nickim": {
+    "name": "Nicki Minaj",
+    "password": "nicki123",
+    "email": "nicki@gmail.com"
+  },
+  "jenmey1": {
+    "name": "Jen Meyers",
+    "password": "jenmey12",
+    "email": "rilorie@gmail.com"
+  },
+  "jenmey12": {
+    "name": "Jen Meyers",
+    "password": "jenmey12",
+    "email": "rilorie@gmail.com"
+  },
+  "jenmey123": {
+    "name": "Jen Meyers",
+    "password": "jenmey12",
+    "email": "rilorie@gmail.com"
+  },
+  "jenmey1234": {
+    "name": "Jen Meyers",
+    "password": "jenmey12",
+    "email": "rilorie@gmail.com"
+  },
+  "duali12": {
+    "name": "Dua Lipa",
+    "password": "dualipa12",
+    "email": "dualipa@gmail.com"
+  },
+  "EsteHaim": {
+    "name": "Este Haim",
+    "password": "este123",
+    "email": "rilorie@gmail.com"
+  },
+  "squidward": {
+    "name": "Squidward Tentacles",
+    "password": "1234567",
+    "email": "rilorie@gmail.com"
+  },
+  "gway": {
+    "name": "Gerard Way",
+    "password": "mcr123",
+    "email": "rilorie@gmail.com"
+  },
+  "phoebeb": {
+    "name": "Phoebe Bridgers",
+    "password": "waffles1",
+    "email": "warmwaffles123@gmail.com"
+  }
+}

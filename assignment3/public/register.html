@@ -1,0 +1,211 @@
+<!-- 
+   Alyssa Mencel's Assignment 3 registration page
+   made with template help from templated.co @templatedco
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+  <title>Register</title> <!--Name that appears on tab -->
+  <link rel="stylesheet" href="register.css"> <!--style sheet for page-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet"> <!--Font by google fonts-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+    <!--loads in css and js files from template-->
+    <style>
+        
+        body {
+	background-image: url("https://i.ibb.co/YZQcSMt/space-pattern.gif"); /*gif that runs on reg page background*/
+	font-family: 'Concert One', cursive;font-size: 22px; /*the bubbly font on registration page*/
+   }
+   .white-box { /*white box surrounding the reg forms*/
+	/*font and color details*/
+    background-color: white;
+	color: black;
+	padding: 16px 50px;
+	width: 510px; height: 700px; margin-left: auto; margin-right: auto; 
+	position: relative;
+    left: 400px 
+   }
+    .topnav {
+      overflow: hidden;
+      background-color: purple;
+    }
+    
+    .topnav a {
+      float: left;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+    /* Changes color on hover*/
+    .topnav a:hover {
+      background-color: #7A8B8B;
+      color: black;
+    }
+    </style>
+</head>
+
+<body id="top">
+
+    <!-- Header -->
+</header>
+<!-- Header -->
+<div class="topnav"> 
+    <a class="active" href="./index.html">Home</a> 
+    <a class="active" href="./all.html">All</a> 
+    <a href="./tvmovie.html">TV, Movies and Music</a> 
+    <a href="./videogame.html">Video Game</a> 
+    <a href="./holidays.html">Holidays</a>
+    <a href="./objectfood.html">Objects and Food</a> 
+    <script>
+        function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+var username = getCookie('username');
+console.log(username);
+if (username != ""){
+    document.write(`<a href="./logout">Logout ${username}</a>`);
+} else {
+    document.write(`<a href="./login">Login</a>`);
+}
+    </script><a href="./cart.html"></a><script>
+                        var cart = sessionStorage.length;
+                                    if (cart > 0) {
+                                        document.write(`
+                                            <p>Shopping Cart<font color="#629DD1">(${cart})</font></p>
+                                        `)
+                                    }
+                                    else {
+                                        document.write (`<p> <font color="#555f66"> Shopping Cart </font> </p> `)
+                                    };
+                    </script></a>
+            </div>
+        </header>
+    <!-- Ask user to log in -->
+    <!-- Banner -->
+
+    <div class="white-box"> 
+    <!-- Made with help from lab14 exercise 4-->
+    <form name="registration_form" action="javascript:register_user();" method="GET">
+        <br>
+        <div style="text-align:center">  
+            <h1>Register</h1>
+        <center>
+            <input type="text" name="name" size="40" placeholder="Enter Name">
+            <span id="name_message"></span>
+        <input type="text" name="username" size="40" placeholder="Enter Username">
+        <span id="username_message"></span>
+        <input type="email" name="email" size="40" placeholder="Enter Email">
+        <span id="email_message"></span>
+        <input type="password" name="password" size="40" placeholder="Enter Password">
+        <span id="password_message"></span>
+        <input type="password" name="repeat_password" size="40" placeholder="Confirm Password">
+        <span id="repeat_password_message"></span>
+        <br> </center>
+        <center><input type="submit" value="Register" id="submit" name="register_button"></center>
+
+    </form>
+
+    <script>
+        //made with help from w3schools.com
+        function setCookie(cname, cvalue, exdays) { //sets cookie
+            var d = new Date(); //today's date
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000)); //expiration is set to a day after inital login
+            var expires = "expires=" + d.toUTCString(); 
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"; 
+        }
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+        function eraseCookie(name) {
+            document.cookie = name + '=; Max-Age=-99999999;';
+        }
+
+        //made with help from stackoverflow.com, allows one to return to previous page after login 
+        function GoBackWithRefresh(event) { 
+            var past = document.referrer;
+            var index = 'index.html'
+            var pastPage = past.split('/').pop(); 
+
+            if (pastPage != 'login.html' && pastPage != 'register.html') { 
+                window.location = index;
+            } else if (pastPage == 'login.html' && pastPage == 'register.html') {
+                window.history.go(-2); 
+            } else {
+                window.location.href = './index.html'; 
+            }
+
+        };
+
+        //Made with help from microservice example 
+        function register_user() { //validates on the server 
+            data = new URLSearchParams(new FormData(registration_form)); // sets variable 
+
+            fetch('/register_user', //gets response from app post
+                {
+                    method: 'post',
+                    body: data,
+                    redirect: 'follow'
+                }
+            ).then(function (response) { 
+
+                if (response.ok) { 
+
+                    response.json().then(function (errors) { 
+
+                        if (Object.keys(errors).length == 0) { 
+                            sessionStorage.clear(); //resets the session
+                            var theDate = JSON.stringify(Date()); //has time of login
+                            var username = registration_form.username;
+                            var userEmail = registration_form.email;
+                            var user_name = registration_form.name;
+                            setCookie('last_login_time', JSON.parse(theDate),'username', username, 'email', userEmail, 'name', user_name); 
+                            response.redirect(GoBackWithRefresh()); 
+                        } else {
+
+                            for (errorId in errors) { 
+                                document.getElementById(errorId + '_message').innerHTML = errors[errorId]; 
+                            }
+
+                        }
+
+                    });
+
+                }
+
+                else {
+                    console.log('Network request for /register_user failed with response ' + response.status + ': ' + response.statusText); 
+                }
+
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>

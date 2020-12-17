@@ -1,0 +1,17 @@
+<!-- Code is from Assignment 3 Code examples -->
+
+<script>
+    // Print the order confirmation 
+    print ;{order_str}
+    
+    //tells JAVASCRIPT what mail server to use
+    $mail_server = "mail.hawaii.edu"; // this mail server only works if you (i.e. this program) is running on a UH Network
+    ini_set("SMTP", $mail_server);
+
+    //provides a 'from' address so spam filters don't complain
+    $from_address = "sales@mysite.com";
+    ini_set("sendmail_from", $from_address);
+
+    $recipient = $_POST['recipient'];
+    $subject = "Order confirmation"; 
+</script>

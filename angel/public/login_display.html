@@ -1,0 +1,35 @@
+<!-- Author: Kiara Furutani
+	This file contains the code for the login page -->
+
+	  
+
+<!-- HTML format taken from https://codepen.io/colorlib/pen/rxddKy and modified -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="login_display.css">
+	<title>Login Page</title>
+</head>
+
+<body>
+	<div class="login-page">
+		<div class="form">
+		<!-- creates form for users input login information to continue to invoice -->
+		  <form action="process_login" class="login-form" name="login_form" method="POST">
+			<input type="text" name="username" placeholder="username"/>
+			<div id="usernamelabel"></div>
+			<input type="password" name="password" placeholder="password"/>
+			<div id="passwordlabel"></div>
+			<!-- Sets link to go from login page to invoice page if account exists -->
+			<a href="./invoice_display.html"><button>login</button></a>
+			<!-- Sets link to go from login page to registration page -->
+			<p class="message">New user? Create an account<a href="./registration_display.html"> here</a></p>
+		  </form>
+		</div>
+	  </div>
+</body>
+
+</html>

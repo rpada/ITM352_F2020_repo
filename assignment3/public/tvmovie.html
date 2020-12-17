@@ -1,0 +1,276 @@
+<script src="main.js"></script>
+<script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    <script>
+        //Referenced from assignment 1 examples
+        function isNonNegInt(q, return_errors = false) {
+            errors = []; // assume no errors at first
+            if (q == '') q = 0; // handle blank inputs as if they are 0
+            if (Number(q) != q) errors.push('<font color="red">Not a number!</font>'); // Check if string is a number value
+            else if (q < 0) errors.push('<font color="red">Negative value!</font>'); // Check if it is non-negative
+            else if (parseInt(q) != q) errors.push('<font color="red">Not an integer!</font>'); // Check that it is an integer
+            return return_errors ? errors : (errors.length == 0);
+        }
+        function checkQuantityTextbox(theTextbox) {
+            errs = isNonNegInt(theTextbox.value, true);
+            if (errs.length == 0) errs = ['You want:'];
+            if (theTextbox.value.trim() == '') errs = ['Quantity'];
+            document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
+       }
+       //Add to session, from the amount in the cart
+       function add_to_cart (i) {
+        var incart = product_main_display[`quantity${i}`].value; 
+        if (isNonNegInt(incart) = true) { 
+            sessionStorage['products${i}'] = incart;
+            console.log(incart) 
+        } 
+        
+    
+    
+       }
+    
+        window.onload = function () {
+            let params = (new URL(document.location)).searchParams; // get the query string which has the form data
+            // form was submitted so check that quantities are valid then redirect to invoice if ok.
+            if (params.has('submitcart')) {
+                has_errors = false; // assume quantities are valid from the start
+                total_qty = 0; // need to check if something was selected so we will look if the total > 0
+                //For every product in the array, write the product number, display its image and name, and list price
+                for (i = 0; i < products.length; i++) {
+                    if (params.has(`quantity${i}`)) {
+                        a_qty = params.get(`quantity${i}`);
+                        // make textboxes sticky in case of invalid data
+                        product_form[`quantity${i}`].value = a_qty;
+                        total_qty += a_qty;
+                        if (!isNonNegInt(a_qty)) {
+                            has_errors = true; // oops, invalid quantity
+                            checkQuantityTextbox(product_form[`quantity${i}`]); // show where the error is
+                        }
+                    }
+                }
+                // Now respond to errors or redirect to invoice if all is ok
+                if (has_errors == true) {
+                    alert("Please enter only valid quantities! Cannot add to cart!");
+                } else if (total_qty == 0) { // no quantity selections, just give a general alert
+                    alert("Please enter only valid quantities! Cannot add to cart!");
+                } 
+                
+            } 
+        }
+        function saveProduct(i) { //saves the product to the cart 
+              var amountProduct = quantity_form[`quantity_textbox${i}`].value;
+              if (isNonNegInt(amountProduct) == true) { //if it has no errrors 
+                  sessionStorage[`${product}${i}`] = amountProduct; //save this product amount 
+                  alert('Added to cart')
+              } else {
+                  alert('Could not add product to cart! You entered invalid data!'); //tells them it is invalid 
+              };
+              window.location.reload();
+          };
+    var cart = sessionStorage.length;
+                                      if (cart > 0) {
+                                          console.log(
+                                              cart
+                                          )
+                                      };
+      </script>
+    <!--putting in the products.js-->
+    <script src="./products.js" type="text/javascript"></script>
+    <script> var product = 'tvmovie'; </script>    
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>TV/Music/Movies Earrings</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/prettyPhoto.css" rel="stylesheet">
+        <link href="css/price-range.css" rel="stylesheet">
+        <link href="css/animate.css" rel="stylesheet">
+        <link href="css/responsive.css" rel="stylesheet">
+        <link href="css/product.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+        <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->       
+        <link rel="shortcut icon" href="images/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+         <style>
+            header{
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            form{
+        text-align: center;
+    }
+        input[type=submit] {
+            font-weight: bold;
+            font-size: 20px;
+            color:black;
+            margin-top: 25px;
+        }
+    
+       /* styling the navbar */
+        .topnav {
+          overflow: hidden;
+          background-color: #ffb6c1;
+        }
+        
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          padding: 14px 16px;
+          font-size: 17px;
+        }
+        /* Changes color on hover*/
+        .topnav a:hover {
+          background-color: #FF69B4	;
+          color: black;
+        }
+        body {
+    background-color: #FFF0F5;
+        }
+    img {
+    width: 200px;
+    height: 250px; 
+    bottom: 0px;
+}
+        </style>
+    </head><!--/head-->
+<body id="top">
+    <div class="header-middle"><!--header-middle-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 clearfix">
+                    <div class="logo pull-left">
+                    </div>
+                    <div class="btn-group pull-right clearfix">
+                        <div class="btn-group">
+                            <h1>Rianne's Handmade Earrings</h1>
+                        </div>
+                        
+                    
+                </div>
+            </div>
+        </div>
+</header>
+    <!-- Header -->
+    <div class="topnav"> 
+        <a class="active" href="./index.html">Home</a> 
+        <a class="active" href="./all.html">All</a> 
+        <a href="./tvmovie.html">TV, Movies and Music</a> 
+        <a href="./videogame.html">Video Game</a> 
+        <a href="./holidays.html">Holidays</a>
+        <a href="./objectfood.html">Objects and Food</a> 
+        <script>
+            function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+    var username = getCookie('username');
+    console.log(username);
+    if (username != ""){
+        document.write(`<a href="./logout">Logout ${username}</a>`);
+    } else {
+        document.write(`<a href="./login">Login</a>`);
+    }
+        </script><a href="./cart.html"><script>
+                            var cart = sessionStorage.length;
+                                        if (cart > 0) {
+                                            document.write(`
+                                                <p><font color="#555f66"> Shopping Cart </font> <font color="#629DD1">(${cart})</font></p>
+                                            `)
+                                        }
+                                        else {
+                                            document.write (`<p> <font color="#555f66"> Shopping Cart </font> </p> `)
+                                        };
+                        </script></a>
+                </div>
+            </header>
+    
+
+
+           <!-- Main -->
+				<header class="major">
+					<h2>TV/Music/Movies Earrings</h2>
+                </header>
+                    <form name='quantity_form' action="/process_form" method="POST">
+                        <div class="row">
+                            <div class="column">
+                        <!-- Display page content in form to process invoice from content with a POST request -->
+                        <main>
+                            <script> //Used SmartPhone Product 3 WOD for help 
+                        for (i = 0; i < products[product].length; i++) { //Creates loop 
+                            document.write(`
+                            <div class="6u">
+                                <section class="special">
+                                    <a href="#" class="image fit"><img src="${products[product][i].image}"></a>
+                                    <h3>${products[product][i].name}</h3>
+                                <p>
+                                    Price: $${products[product][i].price}
+                                </p>
+                                <ul class="actions">
+                                    <li>
+                                        <input id="textbox${i}" class="btn" type="text" name="quantity_textbox${i}" placeholder="Quantity" onkeyup="checkQuantityTextbox(this);">
+                                        <span id="quantity_textbox${i}_message"></span>
+                                        <br></br>
+                                        <input type="button" value="Add to Cart" name="addProducts${i}" onclick="saveProduct(${i});">
+                                        <br></br>
+                                        <span id="cart${i}"></span>
+                                    </li>
+                                </ul> 
+                                </section>
+                                </div>`);
+                                
+                            if (typeof sessionStorage[`${product}${i}`] != 'undefined') {
+                                quantity_form[`quantity_textbox${i}`].value = sessionStorage[`${product}${i}`];
+                            }
+    
+                        }
+                            </script>
+                </div>
+                    </form>
+                    <footer>
+                        <section>
+                      
+                            <script>
+                                var theUser = getCookie('name'); 
+                                var theUsername = getCookie('username'); 
+                                var email = getCookie('email'); 
+                                var lastVisited = getCookie('last_login_time'); 
+                                if (theUsername != '') { 
+                                    document.write(`
+                                        <p> Thank you, ${theUsername}</font><p> 
+                                        <p>Last log-in: <font color="#629DD1">${lastVisited}</font></p>
+                                    `)
+                                } else {
+                                    document.write(`
+                                        <p>Not logged in. Please log in <a href="login.html" style="color": #629DD1; font-size: 1em; font-family: inherit;">here</a></p>
+                                    `)
+                                };
+                                
+                            </script>
+                        </section>
+                    </footer>
+
+
+</body>
+
+</html>

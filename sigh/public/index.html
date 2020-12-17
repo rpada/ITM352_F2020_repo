@@ -1,0 +1,151 @@
+<!--Author: Mark Chou & Faye Miguel -->
+<!--Resources: https://www.w3schools.com; SmartPhoneProducts, Assignment1, Lab13-->
+<!--This page has the code for the home page containing about AMA and the current executive board-->
+
+<!DOCTYPE html>
+<html lang="en">
+<title>American Marketing Association</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="style.css">
+<style>
+</style>
+<body>
+
+<!-- Navigation bar code -->
+<nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>American Marketing Association<br>(AMA)</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="./index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
+    <a href="./amalogin.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Login</a> 
+    <a href="./amasignup.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Sign Up</a> 
+  </div>
+</nav>
+
+<!-- This code moves the whole page content to not overlay with the navigation bar -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><b>American Marketing Association</b></h1>
+    <h1 class="w3-xxxlarge w3-text-blue"><b>Your Adventure Awaits</b></h1>
+    <hr style="width:50px;border:5px solid blue" class="w3-round">
+  </div>
+  
+  <!-- Photo grid (modal) -->
+  <div class="w3-row-padding">
+    <div class="w3-half">
+      <img src="./images/AMAindex1.jpg" style="width:100%" onclick="onClick(this)" alt="Committee Wars">
+      <img src="./images/AMAindex2.jpg" style="width:100%" onclick="onClick(this)" alt="Scavenger Hunt">
+      <img src="./images/AMAindex3.jpg" style="width:100%" onclick="onClick(this)" alt="Car Wash">
+    </div>
+
+    <div class="w3-half">
+      <img src="./images/AMAindex4.jpg" style="width:100%" onclick="onClick(this)" alt="Super Clubs Day">
+      <img src="./images/AMAindex5.jpg" style="width:100%" onclick="onClick(this)" alt="Professional Interaction Night">
+      <img src="./images/AMAindex6.jpg" style="width:100%" onclick="onClick(this)" alt="Winter Ball">
+    </div>
+  </div>
+
+  <!-- Modal for full size images on click-->
+  <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
+    <span class="w3-button w3-black w3-xxlarge w3-display-topright">×</span>
+    <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+      <img id="img01" class="w3-image">
+      <p id="caption"></p>
+    </div>
+  </div>
+
+  <script>
+  // Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+  <!-- About Us -->
+  <div class="w3-container" id="aboutus" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-blue"><b>About Us.</b></h1>
+    <hr style="width:50px;border:5px solid blue" class="w3-round">
+    <p>Adventure Awaits with AMA embodies the opportunities that we will go for as a chapter throughout the year. 
+      With the support and empowerment of each member in AMA, we will all help one another reach our goals and find ourselves. 
+      The American Marketing Association at UHM is about creating connections, strengthening bonds, and growing in personal and professional ways. 
+      Together, we will endure, succeed, and grow.
+    </p>
+    <h3>Our Chapter.</h3>
+    <p>The American Marketing Association at the University of Hawaii at Manoa (AMA-UHM) is a collegiate chapter of the internationally affiliated AMA organization. AMA-UHM was established in 1971 and continues to be one of the largest and most active organizations in the Shidler College of Business.</p>
+    <h3>Our Mission.</h3>
+    <p>We strive to lift our members to newer heights by providing them with opportunities to better understand the field of marketing and to prepare them for a smooth transition into a professional setting.</p>
+    <p>The American Marketing Association welcomes students of all majors who have an interest in marketing. Our programs are designed to promote networking opportunities, professional development, and social responsibility for students.</p>
+  </div>
+  
+
+  <!-- Executive Board -->
+  <div class="w3-container" id="Executive" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-blue"><b>Executive Board.</b></h1>
+    <hr style="width:50px;border:5px solid blue" class="w3-round">
+    <p>Our executive board is made up of a group of elected individuals who have proven themselves to be dedicated to AMA and its members. The executive board's mission is to ensure that every member benefits from their time at AMA-UHM. 
+    </p>
+  </div>
+
+  <!-- Pictures and information about the executive member -->
+  <div class="w3-row-padding">
+    <div class="w3-col m4 w3-margin-bottom">
+      <div class="w3-light-grey">
+        <img src="./images/Ashley.jpg" alt="Ashley" style="width:100%">
+        <div class="w3-container">
+          <h3>Ashley Regaspi</h3>
+          <p class="w3-opacity">Executive President</p>
+          <p>aregaspi@hawaii.edu</p>
+          <p>Ashley first joined the fAMAly in Fall 2017 because she had a friend that recruited her to join and she wanted to be a marketing major at first.
+            She is now a communications major and is looking forward to meeting new people, creating strong relationships, and having fun within the club.
+            Ash takes care of everyone and make sure everyone feels welcome!</p>
+        </div>
+      </div>
+    </div>
+    <div class="w3-col m4 w3-margin-bottom">
+      <div class="w3-light-grey">
+        <img src="./images/Justin.jpg" alt="Justin" style="width:100%">
+        <div class="w3-container">
+          <h3>Justin Yago</h3>
+          <p class="w3-opacity">VP of Professional Development</p>
+          <p>jyago2@hawaii.edu</p>
+          <p>Justin is a marketing major and joined AMA in Fall 2017 to meet cool people. Coming from a different island, he wanted to step out of his comfort zone.
+            This semester, Justin looks forward to growing with a new group of people.
+            Do you want to grow professionally? Sign up now and attend Justin’s company tours and workshop events!</p>
+        </div>
+      </div>
+    </div>
+    <div class="w3-col m4 w3-margin-bottom">
+      <div class="w3-light-grey">
+        <img src="./images/Haley.jpg" alt="Haley" style="width:100%">
+        <div class="w3-container">
+          <h3>Haley Kunimura</h3>
+          <p class="w3-opacity">VP of Communications</p>
+          <p>haleyk@hawaii.edu</p>
+          <p>Haley is a marketing major and joined AMA in Fall 2018 to make new friends and get involved in Shidler.
+            This semester, Haley looks forward to meeting new members and building new relationships.
+            If you receive our weekly newsletters, it was sent out by Haley! She is the liason between our club and the Inter-Business council.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+        
+  
+ 
+<!-- End page content -->
+</div>
+
+<!--The following code gives space between the last item above, and the bottom of the screen -->
+<div class="w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"><a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity"></a></p></div>
+
+</body>
+</html>

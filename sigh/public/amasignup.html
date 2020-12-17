@@ -1,0 +1,84 @@
+<!--Author: Mark Chou & Faye Miguel -->
+<!--Resources: https://www.w3schools.com; SmartPhoneProducts, Assignment1, Lab13-->
+<!--This page has the code for signing up for AMA-->
+
+<!DOCTYPE html>
+<html lang="en">
+<title>American Marketing Association</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="style.css">
+<style>
+</style>
+<body>
+
+<!-- Navigation bar code -->
+<nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>American Marketing Association<br>(AMA)</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="./index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
+    <a href="./amalogin.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Login</a> 
+    <a href="./amasignup.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Sign Up</a> 
+  </div>
+</nav>
+
+<!-- This code moves the whole page content to not overlay with the navigation bar -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><b>American Marketing Association</b></h1>
+    <h1 class="w3-xxxlarge w3-text-blue"><b>Sign Up Page</b></h1>
+    <h3 class="w3-xlarge w3-text-blue"><b>Join AMA!</b></h3>
+    <hr style="width:50px;border:5px solid blue" class="w3-round">
+  </div>
+
+
+  <script>src ="server.js"</script>
+</head>
+<script>
+        var password = document.getElementById("password") //turns password into an object
+        ,repeat_password = document.getElementById("repeat_password"); //turns repeat password into an object
+        
+        function validatePassword(){
+          if(password.value != repeat_password.value) { //if password is not equal to repeat password, say passwords don't match
+            alert("Please make sure passwords match.");
+        response.redirect('public/amasignup.html') 
+          } 
+        else{
+            response.redirect('Login_Successful') 
+        }
+      
+        }
+          validatePassword();
+      </script>
+<body>
+
+    <!--this code puts the whole body of the website not overlapping the navbar-->
+    <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+        <div>
+                <form  method="POST" action="" onsubmit=validatePassword() >
+                  <input type="text" name="fullname" size="40" pattern="[a-zA-Z]+[ ]+[a-zA-Z]+" maxlength="30" placeholder="Enter First & Last Name"><br />
+                  <input type="text" name="username" size="40" pattern=".[a-z0-9]{3,10}" required title="Minimum 4 Characters, Maximum 10 Characters, Numbers/Letters Only" placeholder="Enter Username" ><br />
+                  <input type="email" name="email" size="40" placeholder="Enter Email" pattern="[a-z0-9._]+@[a-z0-9]+\.[a-z]{3,}$" required title="Please enter valid email."><br />
+                  <input type="password" id="password" name="password"  size="40" pattern=".{8,}" required title="8 Characters Minimum" placeholder="Enter Password"><br />
+                  <input type="password" id="repeat_password" name="repeat_password" size="40" pattern=".{8,}" required title="8 Characters Minimum" placeholder="Repeat Password"><br />
+               
+                  <input type="submit" value="Submit" id="submit">
+              </form></div>
+           
+    </html>
+    
+<!-- End page content -->
+</div>
+
+<!--The following code gives space between the last item above, and the bottom of the screen -->
+<div class="w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"><a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity"></a></p></div>
+
+</body>
+</html>

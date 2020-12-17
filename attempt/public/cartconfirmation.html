@@ -1,0 +1,89 @@
+<!--Rianne Pada-->
+<!--Login page. Allows user to enter their information and access their invoice once they login successfully-->
+
+      <!--LOGIN IN TEMPLATE MADE BY Mohamed Azouaoui https://github.com/azouaoui-med-->
+      <!DOCTYPE html>
+      <html lang="en" dir="ltr">
+      
+      <head>
+        <style>
+          .topnav {
+        overflow: hidden;
+        background-color: pink;
+      }
+      
+      .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+      /* Changes color on hover*/
+    
+      </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Added to cart</title> <!--title on the tab-->
+        <!--STYLE SHEETS-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/css/custom.css">
+        <!-- Favicon and touch icons -->
+        <link rel="shortcut icon" href="assets/ico/favicon.png">
+       
+      </head>
+      <div class="topnav"> 
+        <a class="active" href="./index.html">Home</a> 
+        <a class="active" href="./all.html">All</a> 
+        <a href="./tvmovie.html">TV, Movies and Music</a> 
+        <a href="./videogame.html">Video Game</a> 
+        <a href="./holidays.html">Holidays</a>
+        <a href="./objectfood.html">Objects and Food</a> 
+        <script>
+          function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  var username = getCookie('username');
+  console.log(username);
+  if (username != ""){
+      document.write(`<a href="./logout">Logout ${username}</a>`);
+  } else {
+      document.write(`<a href="./login">Login</a>`);
+  }
+      </script> 
+        <a href="./cart.html">Cart</a>
+        
+    </div>
+      
+      <body>
+        <div class="login-title text-center">
+        <img src="https://i.ibb.co/12PwmG0/230-2303822-confirm-icon-png.png" alt="230-2303822-confirm-icon-png" border="0" width="400px">
+        <div class="login-title text-center">
+          <h2><span>Your item(s) were successfully added to your cart</span></h2> <!--Header/title at top of page-->
+    </div>
+   
+      </body>
+      
+      </html>
+<form action="/cart.html">
+    <input type="submit" value="View Cart" /> 
+</form>
+<br>
+<br>
+<button onclick="window.history.go(-1)">Continue Shopping</button>
+</form>

@@ -1,0 +1,185 @@
+<!--Author: Mark Chou & Faye Miguel -->
+<!--Resources: https://www.w3schools.com-->
+<!--This page has the code for the different members and their information-->
+
+<!DOCTYPE html>
+<html lang="en">
+<title>American Marketing Association</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="style.css">
+<style>
+</style>
+<body>
+
+<!-- Navigation bar code -->
+<nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>American Marketing Association<br>(AMA)</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="./index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
+    <a href="./amalogin.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Login</a> 
+    <a href="./amasignup.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Sign Up</a> 
+  </div>
+</nav>
+
+
+<!-- This code moves the whole page content to not overlay with the navigation bar -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+    <!-- Consitent header for all pages -->
+    <div class="w3-container" style="margin-top:80px" id="showcase">
+      <h1 class="w3-jumbo"><b>American Marketing Association</b></h1>
+      <h1 class="w3-xxxlarge w3-text-blue"><b>Membership Invoice</b></h1>
+      <h3 class="w3-xlarge w3-text-blue"><b>Thank you for choosing AMA, we are excited for you to join our fAMAly.</b></h3>
+      <hr style="width:50px;border:5px solid blue" class="w3-round">
+    </div>
+    <a href="./amawelcome.html" class="w3-button w3-blue">Back</a>
+  
+    </html>
+    
+<p><strong>The table below lists all AMA's current members for this semester.</strong></p>
+<p>If you don't see your name, please contact an Executive Member.</p>
+<p>The information listed are based on the paper application that you gave us in the beginning of the semester.</p>
+
+<table id="myTable">
+  <tr>
+   <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->  
+    <th onclick="sortTable(0)">First Name</th>
+    <th onclick="sortTable(1)">Last Name</th>
+    <th onclick="sortTable(2)">Major</th>
+    <th onclick="sortTable(3)">Double Major or Minor</th>
+    <th onclick="sortTable(4)">Class Standing</th>
+  </tr>
+  <tr>
+    <td>Faye Anne</td>
+    <td>Miguel</td>
+    <td>Marketing</td>
+    <td>Management Information Systems</td>
+    <td>Junior</td>
+  </tr>
+  <tr>
+    <td>Mark</td>
+    <td>Chou</td>
+    <td>Finance</td>
+    <td>Management Information Systems</td>
+    <td>Junior</td>
+  </tr>
+  <tr>
+    <td>Justin</td>
+    <td>Yago</td>
+    <td>Marketing</td>
+    <td>Entrepreneurship</td>
+    <td>Junior</td>
+  </tr>
+  <tr>
+    <td>Evan Jay</td>
+    <td>Santos</td>
+    <td>Public Health</td>
+    <td>N/A</td>
+    <td>Junior</td>
+  </tr>
+  <tr>
+    <td>Julia</td>
+    <td>Ishikawa</td>
+    <td>Travel Industry Management</td>
+    <td>N/A</td>
+    <td>Sophomore</td>
+  </tr>
+  <tr>
+    <td>Chayse</td>
+    <td>Tamaki</td>
+    <td>Entrepreneurship</td>
+    <td>N/A</td>
+    <td>Junior</td>
+  </tr>
+  <tr>
+    <td>Jaydon</td>
+    <td>Arakawa</td>
+    <td>Sociology</td>
+    <td>N/A</td>
+    <td>Senior</td>
+  </tr>
+  <tr>
+    <td>Ashley</td>
+    <td>Nguyen</td>
+    <td>Social Work</td>
+    <td>N/A</td>
+    <td>Junior</td>
+  </tr>
+  <tr>
+    <td>Jacob</td>
+    <td>Connell</td>
+    <td>General Business</td>
+    <td>N/A</td>
+    <td>Junior</td>
+  </tr>
+</table>
+
+<script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
+</div>
+
+<!--The following code gives space between the last item above, and the bottom of the screen -->
+<div class="w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"><a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity"></a></p></div>
+
+</body>
+</html>

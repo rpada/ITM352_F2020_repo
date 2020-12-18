@@ -1,110 +1,88 @@
-//Creating a server via express//
-var data = require('./public/products.js'); //get the data from product_data.js
+// Rianne Pada
+//My server for assignment 3
+// Runs all the pages on the class server and local host
+var data = require('./public/products.js'); //get the data from products.js
 var products = data.products;
 
 // So it'll load querystring// 
 const querystring = require('querystring');
-const queryString = require('query-string'); // so it'll load querystring// 
-var filename = 'user_data.json'; // new//
+const queryString = require('query-string'); // load querystring// 
+var filename = 'user_data.json'; // setting filename
 var fs = require('fs'); //Load file system//
-var express = require('express'); //Server requires express to run//
-var app = express(); //Run the express function and start express//
+var express = require('express'); //Need express to run certain parts//
+var app = express(); 
 var myParser = require("body-parser");
-var cookieParser = require('cookie-parser'); //don't forget to install//
-var nodemailer = require('nodemailer');
+//REFERENCED DANIEL PORT LAB 15 + A3 EXAMPLES
+var cookieParser = require('cookie-parser'); //Need cookie-parser to use cookies
+var nodemailer = require('nodemailer'); //nodemailer sends out the invoice emails
 var path = require('path');
 app.use(cookieParser());
 
 var session = require('express-session');
- //don't forget to install//
- app.use(cookieParser());
- app.use(session({ secret: "ITM352 rocks!", saveUninitialized: false, resave: false })); 
+ app.use(cookieParser()); // setting up the cookie/session
+
+ // REFERENCED FROM DANIEL PORT A3 EXAMPLES AND LAB 15
+app.use(session({ //
+    secret: 'ITM352 Rocks!', //encrypts the session 
+    resave: true, //saves the session
+    saveUninitialized: false, //deletes or forgets session when it is done
+    httpOnly: false, //doesnt allow access of cookies 
+    secure: true, //only uses cookies in HTTPS
+    ephemeral: true //this deletes this cookie when browser is closed 
+}));
  
  app.use(myParser.urlencoded({ extended: true }));
 
-// Read user data file.
+// Checks if file exists
 if (fs.existsSync(filename)) {
   data = fs.readFileSync(filename, 'utf-8');
   //console.log("Success! We got: " + data);
 
   var user_data = JSON.parse(data);
-  console.log("User_data=", user_data.itm352.password);
+  console.log("User_data"); // logs that user_data exists
 } else {
   console.log("Sorry can't read file " + filename);
-  exit();
+  exit(); // if it doesn't exist, console logs that the file cannot be found and read
 }
-// Go to invoice if quantity values are good, if not redirect back to order page//
-//new//
-// means any path //
 app.all('*', function (request, response, next) {
     console.log(request.method + ' to ' + request.path)
     next();
 });
+// creates cookie
 
-app.get("/set_cookie", function (request, response) {
-  // Set a cookie called myname to be my name
-  response.cookie('myname', 'Rianne Pada', { maxAge: 10000 }).send('cookie set');
-});
-// Using the cookie that was set in /set_cookie
-app.get("/use_cookie", function (request, response) {
-  // Use the cookie, if it has been set
-  output = "No myname cookie found";
-  if (typeof request.cookies.myname != 'undefined') {
-      output = `Welcome to the Use Cookie page ${request.cookies.myname}`;
-  }
-  response.send(output);
-});
 
-// Simple example of printing out a session ID
-app.get("/use_session", function (request, response) {
-  // Print the value of the session ID
-  response.send(`Welcome.  Your session ID is: ${request.session.id}`);
-});
-
-// Simple example of destroying a session 
-app.get("/destroy_session", function (request, response) {
-  // Print the value of the session ID
-  request.session.destroy();
-  response.send("Session nuked!");
-});
-// Create simple registration form
-// Simple example of how sessions can store data between requests
-// Allows us to load in the cart page , reference from professor
+// Allows us to load in the cart page
+//REFERENCED FROM DANIEL PORT OFFICE HOUR APPOINTMENT 12/14
 app.get("/cart.html", function (request, response) {
     cartfile = `<script> var cart = ${JSON.stringify(request.session)}</script>`;
     cartfile += fs.readFileSync('./public/cart.html', 'utf-8'); // add it onto the cart page which is in public
     response.send(cartfile);
   
   });
-  app.get("/invoice.html", function (request, response) {
-    invoicefile = `<script> var cart = ${JSON.stringify(request.session)}</script>`;
-    invoicefile += fs.readFileSync('./public/invoice.html', 'utf-8'); // add it onto the cart page which is in public
-    response.send(invoicefile);
-  
-  });
-// login stuff starts here , reference from lab15// 
-// REFERENCED FROM RICK KAZMAN, LAB 14 EXAMPLE 
+// REFERENCED FROM RICK KAZMAN, LAB 15 EXAMPLE 
+// ALSO AIDED BY DANIEL PORT ON 12/14, OFFICE HOURS
 app.get("/login", function (request, response) {
     // send the login.view
     error = {};
-   error.password = "";
+   error.password = ""; // creating error variable
    error.username = "";
-    loginfile = fs.readFileSync('./login.view', 'utf-8');
+    loginfile = fs.readFileSync('./login.view', 'utf-8'); // setting variable
     response.send(eval('`'+loginfile +'`'));
    });
    
-   // DANIEL PORT HELPED ME WITH THIS
+// ALSO AIDED BY DANIEL PORT ON 12/14, OFFICE HOURS
    app.get("/logout", function (request, response) {
     // expire the cookie and send to home page
      response.clearCookie('username');
      response.redirect('./index.html');
     });
 
+// REFERENCED FROM RICK KAZMAN, LAB 15
 // Handle the login form information, including session the session variables for username and last_login
 app.post("/process_login", function (request, response) {
     // First save the request and, in particular, the username and password
     POST = request.body;
-    user_name_from_form = POST["username"];
+    user_name_from_form = POST["username"].toLowerCase(); // makes it not case sensitive
     password_from_form = POST["password"];
     // console.log("User name from form=" + user_name_from_form);
     error = {};
@@ -129,6 +107,7 @@ app.post("/process_login", function (request, response) {
             // response.cookie('email', user_data[user_name_from_form].email);
             response.redirect('./index.html');
             return;
+        // REFERENCED FROM DANIEL PORT, OFFICE HOURS APPOINTMENT 12/14
         } else { // oops password doesn't match
         error.password = 'Password does not match';
         }
@@ -140,33 +119,150 @@ app.post("/process_login", function (request, response) {
     response.send(eval('`'+loginfile +'`'));
   });
        
-
-/*this is used to take info from cart.html
-the server will generate the invoice and send email to user
-then the invoice will be displayed in the page*/ 
+// AIDED BY DANIEL PORT ON 12/14, OFFICE HOURS
 app.post("/generateInvoice", function (request, response) {
-    console.log(user_data, 'Generate Invoice');
-    var user_email = user_data[request.cookies.username].email;
-    cart = JSON.parse(request.query['cartData']); //this parses the cart 
+    console.log(user_data, 'Generate Invoice'); // creates the invoice page after user confirms cart
+    var user_email = user_data[request.cookies.username].email; // setting variables
+    var address = user_data[request.cookies.username].address;
+    cart = JSON.parse(request.query['cartData']); // parsing cart
 
-   
-
-    /*
-    this creates a string of the invoice from cart.html
-    this is what is emailed to the user
-    used with help from previous invoice.html 
-    */
-
-    str = 
-    `
-    <!-- Center header on page -->
-
-
-        <h3 align="center">Thank you for your purchase, <font color="#629DD1">${request.cookies.username}!</font><br />An email copy has been sent to <font color="#629DD1">${user_email}</font></h3>
+    str = // CREATES THE INVOICE STRING THAT WILL BE SHOWN WHEN THE USER SUBMITS AND ALSO IN THE EMAIL
+    // REFERENCED FROM DANIEL PORT A3 EXAMPLES
+    `<!doctype html>
+    <html>
+    <head>
     
+        <meta charset="utf-8">
+        <title>Invoice</title> <!--Tab title-->
+        <!--Styling the invoice (CSS)-->
+        <style> 
+        .invoice-box { /*creating the box that surrounds the table*/
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+        
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left; /*formatting table*/
+        }
+        
+        .invoice-box table td {
+            padding: 10px;
+            vertical-align: top;
+        }
+        
+        .invoice-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+        
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+        
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+        
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+        
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+        
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+        
+        .invoice-box table tr.item td{
+            border-bottom: 1px solid #eee;
+        }
+        
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+        
+        .invoice-box table tr.total td:nth-child(2) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+        
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+            
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+        
+        /** RTL **/
+        .rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; 
+        }
+        
+        .rtl table {
+            text-align: right;
+        }
+        
+        .rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+        </style>
+    </head>  
+    <!-- Center header on page -->
+    <div class="invoice-box"> <!--invoice box styling-->
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="title"> <!--thank you gif above invoice-->
+                            <img src="https://i.ibb.co/HhVjrGb/4f92fe4ee07e79bc3495e41bb5ae1bd3.gif" style="width:100%; max-width:300px;">
+                        </td>
+                        <td style="text-align: right;" width="50%">Invoice</div></td> <!--invoice title, upper righthand corner-->
+                    </tr>
+                </table>
+            </td>
+        </tr>
+<!-- personalization, prints username, email and address-->
+        <h3 align="center">Thank you for your purchase, <font color="#629DD1">${request.cookies.username}!</font><br />An email copy has been sent to <font color="#629DD1">${user_email}</font>
+        <h3 align="center">Your order will be shipped to  <font color="#629DD1">${address}</font></h3>
+        <h3 align="center"><form action="/logout">
+        <input type="submit" value="Finish"/></h3> <!-- logs out user when they're done-->
+    </form>
         <!-- template taken from first invoice on assignment1 -->
-        <section id="one" class="wrapper style1">
-                <!--start of invoice table--> 
+        <tr class="heading">
+        <td>
+        Products <!--Grey bar above invoice-->
+        </td>
+            <tbody>
+                <table border="0">
+                <th style="text-align: left;" width="43%">Earrings</th> 
+                <th style="text-align: right;" width="11%">Quantity</th> 
+                <th style="text-align: right;" width="13%">Price</th> <!--Invoice subtitles-->
+                <th style="text-align: right;" width="54%">Extended Price</th>
+                </tr> 
+            </tbody>  
           <table>`;
 
             subtotal = 0; //subtotal starts off as 0
@@ -177,13 +273,13 @@ app.post("/generateInvoice", function (request, response) {
                     if (qty > 0) { //if a quantity is entered in the textbox 
                         extended_price = qty * products[product][i].price //equation for extended price
                         subtotal += extended_price; //adds each subtotatl to get the the extrended price 
-
+                        // prints product data into invoice
                         str+=`
                         <tr>
-                            <td style= "text-align: left" width="40%">${products[product][i].name}</td>
-                            <td width="20%">${qty}</td>
-                            <td width="20%">\$${products[product][i].price}</td>
-                            <td  width="20%">\$${extended_price}</td>
+                        <td width="43%">${products[product][i].name}</td>
+                        <td align="center" width="11%">${qty}</td>
+                        <td width="13%" align=right>\$${products[product][i].price}</td>
+                        <td width="54%" align=right>\$${extended_price}</td>
                         </tr>
                     `;
                     }
@@ -195,16 +291,16 @@ app.post("/generateInvoice", function (request, response) {
             // Compute shipping
             if (subtotal <= 50) {
                 shipping = 2;
-                }
+                } // if total is less then or equal to $50, shipping is $2
              else if (subtotal <= 100) {
               shipping = 5;
-            }
+            } // if total is less then or equal to $100 but more then 50, shipping is $5
              else {
-              shipping = 0.05 * subtotal; // 5% of subtotal
+              shipping = 0.05 * subtotal; //anything over 100, shipping is 5% of subtotal
               }
             // Compute grand total
               var total = subtotal + tax + shipping;
-            
+            // prints final totals
               str+=`
               <tr>
               <td colspan="4" width="100%">&nbsp;</td>
@@ -265,16 +361,7 @@ app.post("/generateInvoice", function (request, response) {
     response.send(str); // string goes to be displayed in browser
 });
 
-//Used with help from lab15 and stormpath.com 
-app.use(session({ //
-    secret: 'ITM352 Rocks!', //encrypts the session 
-    resave: true, //saves the session
-    saveUninitialized: false, //deletes or forgets session when it is done
-    httpOnly: false, //doesnt allow access of cookies 
-    secure: true, //only uses cookies in HTTPS
-    ephemeral: true //this deletes this cookie when browser is closed 
-}));
-//process the quantity_form when POST request is made
+//REFERENCED FROM ASSIGNMENT 1
 app.post("/process_form", function (request, response) { 
     let POST = request.body; // data is in the body 
 
@@ -282,33 +369,25 @@ app.post("/process_form", function (request, response) {
         var validAmount = true; //make the variable validAmount true 
         var amount = false; //make the variable amount equal to false 
 
-        for (i = 0; i < `${(products_array[`type`][i])}`.length; i++) { //for any product
-            qty = POST[`quantity_textbox${i}`]; //sets the variable qty to quantity textbox 
+        for (i = 0; i < `${(products_array[`type`][i])}`.length; i++) { // all products
+            qty = POST[`quantity_textbox${i}`]; //creates variables
 
             if (qty > 0) {
-                amount = true; //if greater than 0 it is goog 
+                amount = true; // must be greater than 0 to be true
             }
 
             if (isNonNegInt(qty) == false) { //if isNonNegInt is false then it is not a number
-                validAmount = false; // it is not a valid amount
+                validAmount = false; // invalid data!
             }
 
         }
 
-        const stringified = queryString.stringify(POST); //converts data from POST to JSON string 
-
-        if (validAmount && amount) { //if it is a quanity and greater than 0
-            response.redirect("./login.html?" + stringified); // redirect the page to login page if not logged in 
-            return; //stops function
-        }
-
-        else { response.redirect("./index.html?" + stringified) } //if there is invalid sends back to home page with the string 
+        const stringified = queryString.stringify(POST); //creates string
 
     }
-
 });
 
-//repeats the isNonNegInt function
+//REFERENCED FROM DANIEL PORT, ASSIGNMENT 1
 function isNonNegInt(q, return_errors = false) {
     errors = []; // assume no errors at first
     if (q == '') q = 0; // handle blank inputs as if they are 0
@@ -317,41 +396,6 @@ function isNonNegInt(q, return_errors = false) {
     if (parseInt(q) != q) errors.push('<font color="red">Not a full product</font>'); // Check that it is an integer
     return return_errors ? errors : (errors.length == 0);
 }
-
-//Made with help from Lab 14 Exercise 3
-app.post("/check_login", function (request, response) {// Process login form from POST Request
-    errs = {}; //assume no errors at first
-    var login_username = request.body["username"]; //set var login_username to the username 
-    var user_info = user_data[login_username]; //sets a variable
-    var login_password = request.body["password"]; //sets a variable
-
-    if (typeof user_data[login_username] == 'undefined' || user_data[login_username] == '') { // If the username is defined
-        errs.username = '<font color="red">Incorrect Username</font>'; //If invalid usersername doesnt match 
-        errs.password = '<font color="red">Incorrect Password</font>'; //If username does not match anything in json file, password cannot match username
-    } else if (user_info['password'] != login_password) {
-        errs.username = ''; //remove error
-        errs.password = '<font color="red">Incorrect Password</font>'; //wrong password still
-    } else {
-        delete errs.username; //remove error
-        delete errs.password; //remove error
-    };
-
-    if (Object.keys(errs).length == 0) { //If no errors exist 
-        //Used with help from Lab15 Exercise4 
-        session.username = login_username; //adds username to the session 
-        var theDate = Date.now(); //adds the login time 
-        session.last_login_time = theDate; //this login is saved in a session 
-        var login_name = user_info['name']; //sets a variable 
-        var user_email = user_info['email']; //sets a variable
-        response.cookie('username', login_username) //puts the username in a cookie
-        response.cookie('name', login_name) //puts the name in a cookie 
-        response.cookie('email', user_email); //puts the email in a cookie 
-        response.json({}); //parses it into a json object 
-    } else {
-        response.json(errs); //if fails it shows errors 
-    };
-
-});
 app.get("/checkout", function (request, response) {
   var user_email = request.query.email; // email address in querystring
   var product = {};
@@ -421,7 +465,7 @@ function isAlphaNumeric(input) {
     }
 }
 
-//Made with help from Lab 14 Exercise 4
+//REFERENCED FROM ASSIGNMENT 2 + ALYSSA MENCEL
 app.post("/register_user", function (request, response) {
     // processing a registration form 
     errs = {}; //assume no errors at first
@@ -441,55 +485,56 @@ app.post("/register_user", function (request, response) {
         errs.username = null;
     }
 
-    //this section is for the name 
+    //name validation
     if (registered_name.length > 30) { //name has to be shorter than 30 
         errs.name = '<font color="red">Cannot Be Longer Than 30 Characters</font>';
     } else {
         errs.name = null;
-    }
-  ; // setting fullname variable
+    };
+    // setting full name to allow no numbers
     if ((/[a-zA-Z]+[ ]+[a-zA-Z]+/).test(request.body.name) == false) {
        errs.name = '<font color="red">Only use letters and a space for full name</font>' // no numbers for full name, because who has numbers in their legal name anyways? 
     } else {
       errs.name = null;
     }
 
-    //this section is for the password
-    if (request.body.password.length == 0) { //requirement 
+    //password validation
+    if (request.body.password.length == 0) { //you must enter a password
         errs.password = '<font color="red">Please Enter A Password</font>';
-    } else if (request.body.password.length <= 5) { //password is at least 6 characters 
+    } else if (request.body.password.length <= 5) { //password has to be 6 characters
         errs.password = '<font color="red">Password Must Be At Least 6 Characters</font>';
-    } else if (request["body"]["password"] != request["body"]["repeat_password"]) {//checks if repeat field is same
+    } else if (request["body"]["password"] != request["body"]["repeat_password"]) {//repeat has to be the same as original
         errs.password = null;
-        errs.repeat_password = '<font color="red">Passwords Do Not Match</font>'; //error if passwords don't match
+        errs.repeat_password = '<font color="red">Passwords Do Not Match</font>'; //error if not
     } else {
         delete errs.password;
         errs.repeat_password = null;
     }
 
-    //this section is for the email
-    if (request.body.email == '') { //requirement 
+    // email validation
+    if (request.body.email == '') { // you must enter an email address
         errs.email = '<font color="red">Please Enter An Email Address</font>';
     } else if (ValidateEmail(request.body.email) == false) { //if does not follow proper email format, give error
         errs.email = '<font color="red">Please Enter A Valid Email Address</font>';
     } else {
         errs.email = null;
     }
-
-    //Made with help from stackoverflow.com 
+// REFERENCED FROM https://stackoverflow.com/questions/6003884/how-do-i-check-for-null-values-in-javascript
     let result = !Object.values(errs).every(o => o === null); 
-    console.log(result); 
+    console.log(result); // checks for null values 
 
-    if (result == false) { //when there are no errors 
-        //sets the below to what the user entered 
+    if (result == false) { // no errors? data is good to be added to user_data file
         user_data[registered_username] = {}; 
         user_data[registered_username].name = request.body.name; 
         user_data[registered_username].password = request.body.password; 
         user_data[registered_username].email = request.body.email; 
-        fs.writeFileSync(filename, JSON.stringify(user_data, null, 2));
+        user_data[registered_username].address = request.body.address;
+        fs.writeFileSync(filename, JSON.stringify(user_data, null, 2)); // syncs file
+        // creates cookies
         response.cookie("username", registered_username); 
         response.cookie("name", registered_name); 
         response.cookie("email", request.body.email); 
+        response.cookie("address", request.body.address); 
         response.json({}); 
     } else {
         response.json(errs); 
@@ -497,10 +542,5 @@ app.post("/register_user", function (request, response) {
 
 });
 
-app.post('/logout', function (request, response) { 
-    request.session.reset(); 
-    response.redirect('/index.html'); 
-});
-
-app.use(express.static('./public')); //everythin is in the public directory 
-app.listen(8080, () => console.log(`listening on port 8080`)); //runs on port 8080 
+app.use(express.static('./public')); //public directory 
+app.listen(8080, () => console.log(`listening on port 8080`)); //port 8080

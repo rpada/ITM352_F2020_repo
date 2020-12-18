@@ -1,97 +1,100 @@
+// Rianne Pada products data// 
 var all = [
-   //bath product 1
+
    {
       //Product 1
   "name": "Appa",
   "price": 4.00,
-  "image": "/images/appa.png", // image is from en route jewelry webiste//
+  "image": "/images/appa.png"
   
   },
-   //home product 2
+ 
    {
-      //Product 1
+      //Product 2
   "name": "Bold and Brash",
   "price": 5.00,
-  "image": "/images/boldandbrash.png", // image is from en route jewelry webiste//
+  "image": "/images/boldandbrash.png"
   
   },
-   //home product 3
-        //Product 1
+        //Product 3
       {  "name": "Black Parade",
         "price": 4.00,
-        "image": "images/blackparade.png", // image is from en route jewelry webiste//
+        "image": "images/blackparade.png"
         
         },
-   //home product 4
+   //Product 4
    {
    "name": "Poison Apples",
    "price": 10.00,
    "image": "./images/poisonapple.png"
    },
+   //Product 5
    {
       "name": "Sun and Moon Tarot",
       "price": 4.00,
       "image": "./images/tarot.png"
   },
-   //extra product 2
+   //Product 6
    {
       "name": "Milk",
       "price": 4.00,
       "image": "./images/milk.png"
       },  
-   //extra product 3
+   //Product 7
    {
    "name": "Stars",
    "price": 4.00,
    "image": "./images/stars.png"
    },
-   //extra product 4
+   //Product 8
    {
    "name": "Strawberries",
    "price": 5.00,
    "image": "./images/strawberries.png"
    },
+   //Product 9
    {
       "name": "Isabelle",
       "price": 4.00,
       "image": "./images/isabelle.png"
       },
-   //kitchen product 2
+   //Product 10
    {
       "name": "Tom Nook",
       "price": 5.00,
       "image": "./images/tomnook.png"
       },  
-   //kitchen product 3
+   //Product 11
    {
    "name": "Master Swords",
    "price": 10.00,
    "image": "./images/swords.png"
    },
+   //Product 12
    {
       "name": "Candy Corn",
       "price": 4.00,
       "image": "./images/candycorn.png" 
       },
-   //kits product 2
+   //Product 13
    {
       "name": "Pumpkin",
       "price": 5.00,
       "image": "./images/pumpkin.png" 
       },
-   //kits product 3
+   //Product 14
    {
       "name": "Ghosts",
       "price": 6.00,
       "image": "./images/ghosts.png" 
       },
-   //kits product 4
+   //Product 15
    {
       "name": "Christmas Trees",
       "price": 6.00,
       "image": "./images/xmastrees.png" 
       },
-   //kits product 5
+   //Product 16
    {
       "name": "Easter Bunnies",
       "price": 4.00,
@@ -103,46 +106,41 @@ var tvmovie = [
       //Product 1
   "name": "Appa",
   "price": 4.00,
-  "image": "/images/appa.png", // image is from en route jewelry webiste//
-  
+  "image": "/images/appa.png"
   },
-   //home product 2
    {
-      //Product 1
+      //Product 2
   "name": "Bold and Brash",
   "price": 5.00,
-  "image": "/images/boldandbrash.png", // image is from en route jewelry webiste//
-  
+  "image": "/images/boldandbrash.png"
   },
-   //home product 3
-        //Product 1
+   //Product 3
       {  "name": "Black Parade",
         "price": 4.00,
-        "image": "images/blackparade.png", // image is from en route jewelry webiste//
+        "image": "images/blackparade.png"
         
         },
-   //home product 4
+   //Product 4
    {
    "name": "Snow White Poison Apples",
    "price": 10.00,
    "image": "./images/poisonapple.png"
    }
-   //home product 5
 ]
 var videogame = [
-   //kitchen product 1
+   //Product 1
    {
       "name": "Isabelle (Animal Crossing)",
       "price": 4.00,
       "image": "./images/isabelle.png"
       },
-   //kitchen product 2
+   //Product 2
    {
       "name": "Tom Nook (Animal Crossing)",
       "price": 5.00,
       "image": "./images/tomnook.png"
       },  
-   //kitchen product 3
+   //Product 3
    {
    "name": "Master Swords (The Legend of Zelda)",
    "price": 10.00,
@@ -150,31 +148,31 @@ var videogame = [
    }
 ]
 var holiday = [
-   //kits product 1
+   //Product 1
    {
       "name": "Candy Corn",
       "price": 4.00,
       "image": "./images/candycorn.png" 
       },
-   //kits product 2
+   //Product 2
    {
       "name": "Pumpkin",
       "price": 5.00,
       "image": "./images/pumpkin.png" 
       },
-   //kits product 3
+   //Product 3
    {
       "name": "Ghosts",
       "price": 6.00,
       "image": "./images/ghosts.png" 
       },
-   //kits product 4
+   //Product 4
    {
       "name": "Christmas Trees",
       "price": 6.00,
       "image": "./images/xmastrees.png" 
       },
-   //kits product 5
+   //Product 5
    {
       "name": "Easter Bunnies",
       "price": 4.00,
@@ -182,38 +180,38 @@ var holiday = [
       } 
 ]
 var objectfood = [
-   //extra product 1
+   //Product 1
    {
       "name": "Sun and Moon Tarot",
       "price": 4.00,
       "image": "./images/tarot.png"
   },
-   //extra product 2
+   //Product 2
    {
       "name": "Milk",
       "price": 4.00,
       "image": "./images/milk.png"
       },  
-   //extra product 3
+   //Product 3
    {
    "name": "Stars",
    "price": 4.00,
    "image": "./images/stars.png"
    },
-   //extra product 4
+   //Product 4
    {
    "name": "Strawberries",
    "price": 5.00,
    "image": "./images/strawberries.png"
    }
 ]
-var products = {
-   "all": all,
+var products = { // creates all products array
+   "all": all, 
    "tvmovie": tvmovie,
    "videogame": videogame,
    "holiday": holiday, 
    "objectfood": objectfood
 }
 if (typeof module != 'undefined') {
-   module.exports.products = products;
+   module.exports.products = products; // export the products
  }

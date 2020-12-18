@@ -1,15 +1,6 @@
 <!--Rianne Pada-->
 <!--Login page. Allows user to enter their information and access their invoice once they login successfully-->
-<script>
-  // REFERENCED FROM ALYSSA MENCEL
-    let params = (new URL(document.location)).searchParams;
-  
-  window.onload = function () {
-      if (params.has('LogError')) { // if logerror exists as detected on the server,
-          alert('Invalid Username or Password'); // error alert pops up
-      }
-  }
-    </script>
+
     
     <!--LOGIN IN TEMPLATE MADE BY Mohamed Azouaoui https://github.com/azouaoui-med-->
     <!DOCTYPE html>
